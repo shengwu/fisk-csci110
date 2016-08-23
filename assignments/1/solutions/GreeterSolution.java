@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Greeter {
+public class GreeterSolution {
     /**
      * year1, month1, day1 is person1's birthday
      * year2, month2, day2 is person2's birthday
