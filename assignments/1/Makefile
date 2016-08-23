@@ -1,4 +1,7 @@
 make:
 	javac */*.java
 clean:
-	rm */*.class
+	rm -f */*.class
+	rm -f *.zip
+zip:
+	zip -r assignment1_starter.zip cheater greeter
