@@ -18,7 +18,7 @@ public class TicTacToeRef {
         if (s.isEmpty()) {
             return " ";
         }
-        return s;
+        return s.toUpperCase();
     }
 
     public static void main(String[] args) {
