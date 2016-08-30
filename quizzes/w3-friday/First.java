@@ -7,7 +7,7 @@ public class First {
             System.out.println("strike one!");
         }
 
-        int c = 6.0;
+        int c = 6.0
         if (b < c) {
             System.out.println("strike two!");
         }
