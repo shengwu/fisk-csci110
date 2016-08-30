@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class GreeterSolution {
+public class Greeter {
     /**
      * year1, month1, day1 is person1's birthday
      * year2, month2, day2 is person2's birthday
@@ -14,28 +14,36 @@ public class GreeterSolution {
      */
     public static int whoIsOlder(int year1, int month1, int day1,
             int year2, int month2, int day2) {
-        // TODO: delete this comment and write your code here
-        //
-        // Right now this is incorrect since it always says that person1 and
-        // person2 are the same age
-        // return 0;
-        if (year1 == year2 && month2 == month1 && day1 == day2) {
-            return 0;
-        }
         if (year1 < year2) {
             return -1;
         }
+        if (year1 > year2) {
+            return 1;
+        }
+        // Now we know that year1 == year2
+
         if (month1 < month2) {
             return -1;
         }
+        if (month1 > month2) {
+            return 1;
+        }
+        // Now we know that month1 == month2
+
         if (day1 < day2) {
             return -1;
         }
-        return 1;
+        if (day1 > day2) {
+            return 1;
+        }
+        // Now we know that day1 == day2
+
+        return 0;
     }
 
     public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in).useDelimiter("\n");
+        Scanner reader = new Scanner(System.in).useDelimiter(
+                System.getProperty("line.separator"));
 
         // This part asks the user for his/her name and birthday, and a friend's
         // name and birthday. Then it calls whoIsOlder to determine who is older.

@@ -22,7 +22,8 @@ public class Greeter {
     }
 
     public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in).useDelimiter("\n");
+        Scanner reader = new Scanner(System.in).useDelimiter(
+                System.getProperty("line.separator"));
 
         // This part asks the user for his/her name and birthday, and a friend's
         // name and birthday. Then it calls whoIsOlder to determine who is older.
