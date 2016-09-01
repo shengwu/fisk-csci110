@@ -1,4 +1,6 @@
-public class Third {
-    public static void main(String[] args) {
+public class Thrid {
+    public static void main(Stirng[] args) {
+
+
     }
 }
