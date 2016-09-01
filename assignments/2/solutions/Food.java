@@ -7,16 +7,30 @@ public class Food {
     public static void main(String[] args) {
         System.out.println("What are at least four of your favorite foods?");
 
-        // Food (part 2)
+        String food = "";
+        int num_foods = 0;
+        int min_foods = 4;
+        boolean tried_to_leave = false;
+        // You can think about this like "under what conditions can I quit?"
+        // Then put the opposite of those conditions AND-ed together
+        // in the condition for the while loop to continue.
         //
-        // TODO: Write a while loop to read in the names of foods
-        // until the user types "done". However, if the user hadn't yet
-        // typed in four foods, keep asking the user for foods until
-        // you have the names of four foods. (hint: think about what
-        // condition would enforce both of these things) Print out
-        // "One of your favorite foods is ______" after each input.
+        // Conditions where we stop:
+        // - if the user types done and we're over the minimum number of foods
+        // - if the user tried to quit earlier and we're over the minimum
+        //   number of foods
         //
-        // Use reader.next() to read in the name of a food. See Music.java
-        // or the assignment 2 pdf for examples.
+        // You could refactor this to simplify it if you wanted.
+        while (!(food.equals("done") && num_foods >= min_foods) &&
+               !(tried_to_leave && num_foods >= min_foods)) {
+            System.out.print("Give me the name of a food: ");
+            food = reader.next();
+            if (food.equals("done")) {
+                tried_to_leave = true;
+            } else {
+                num_foods += 1;
+                System.out.println("One of your favorite foods is " + food);
+            }
+        }
     }
 }

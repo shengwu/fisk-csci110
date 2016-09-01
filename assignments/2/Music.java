@@ -16,5 +16,9 @@ public class Music {
         //
         // Use reader.next() to read in the name of a song. See above
         // or the assignment 2 pdf for examples.
+        //
+        // while (CONDITION) {
+        //   CODE GOES HERE
+        // }
     }
 }

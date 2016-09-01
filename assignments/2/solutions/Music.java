@@ -8,13 +8,17 @@ public class Music {
         System.out.print("What's the name of your favorite genre? ");
         String genre = reader.next();
 
-        // Music (part 1)
-        //
-        // TODO: Write a while loop to read in the names of songs
-        // until the user has given 5 answers, or types "done". Print
-        // "one of your favorite songs is ____" after each song.
-        //
-        // Use reader.next() to read in the name of a song. See above
-        // or the assignment 2 pdf for examples.
+        int num_answers = 0;
+        String song = "";
+        while (num_answers < 5 && !song.equals("done")) {
+            System.out.print("What's one of your favorite songs? ");
+            song = reader.next();
+            // Don't print this out of the user just typed "done"
+            if (!song.equals("done")) {
+                System.out.println("One of your favorite " + genre +
+                        " songs is " + song);
+                num_answers++;
+            }
+        }
     }
 }
