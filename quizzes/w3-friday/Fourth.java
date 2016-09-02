@@ -12,7 +12,7 @@ public class Fourth {
     }
 
     /**
-     * Returns the result of |base| raised to the |power| power.
+     * Returns the result of "base" raised to the "power" power.
      */
     static String exponent(int base, int power) {
         if (power == 0) {
@@ -21,7 +21,7 @@ public class Fourth {
         int result = base;
         int curr = 1;
         while (curr < power) {
-            result *= base;
+            result -= base;
         }
         return result;
     }

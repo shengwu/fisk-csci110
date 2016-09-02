@@ -4,10 +4,10 @@ public class Second {
         int end = 100;
         boolean done = false;
         while (!done) {
-            start = start + start
             if (start > end) {
                 done = false;
             }
+            start /= start;
         System.out.println("real quick");
     }
 }
