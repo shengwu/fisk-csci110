@@ -11,9 +11,10 @@ public class Food {
         int num_foods = 0;
         int min_foods = 4;
         boolean tried_to_leave = false;
+
         // You can think about this like "under what conditions can I quit?"
-        // Then put the opposite of those conditions AND-ed together
-        // in the condition for the while loop to continue.
+        // Then put the opposite of each condition AND-ed together
+        // in the condition for the while loop.
         //
         // Conditions where we stop:
         // - if the user types done and we're over the minimum number of foods

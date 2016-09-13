@@ -7,20 +7,29 @@ public class Food2 {
     public static void main(String[] args) {
         System.out.println("What are at least four of your favorite foods?");
 
-        // Food + recommendations (part 3, extra credit)
-        //
-        // TODO: Write a while loop to read in the names of foods
-        // until the user types "done". However, if the user hadn't yet
-        // typed in four foods, keep asking the user for foods until
-        // you have the names of four foods. (hint: think about what
-        // condition would enforce both of these things) Print out
-        // "One of your favorite foods is ______" after each input.
-        //
-        // After each food, ask the user for up to three places to get
-        // that favorite food. If the user types "done", move on to asking
-        // for his/her next food.
-        //
-        // Use reader.next() to read in the name of a food. See Music.java
-        // or the assignment 2 pdf for examples.
+        String food = "";
+        int num_foods = 0;
+        int min_foods = 4;
+        boolean tried_to_leave = false;
+
+        while (!(food.equals("done") && num_foods >= min_foods) &&
+               !(tried_to_leave && num_foods >= min_foods)) {
+            System.out.print("Give me the name of a food: ");
+            food = reader.next();
+            if (food.equals("done")) {
+                tried_to_leave = true;
+            } else {
+                num_foods += 1;
+                System.out.println("One of your favorite foods is " + food);
+                // Now get up to three recommendations
+                int num_recs = 0;
+                String recommendation = "";
+                while (num_recs < 3 && !recommendation.equals("done")) {
+                    System.out.print("What's a good place to get " + food + "? ");
+                    recommendation = reader.next();
+                    num_recs += 1;
+                }
+            }
+        }
     }
 }

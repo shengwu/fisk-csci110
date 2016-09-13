@@ -17,8 +17,8 @@ public class Music {
             if (!song.equals("done")) {
                 System.out.println("One of your favorite " + genre +
                         " songs is " + song);
-                num_answers++;
             }
+            num_answers++;
         }
     }
 }
