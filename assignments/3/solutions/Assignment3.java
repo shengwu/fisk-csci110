@@ -23,8 +23,7 @@ public class Assignment3 {
      * Calculates the distance between the points (x1, y1) and (x2, y2).
      */
     public static double getDistance(double x1, double y1, double x2, double y2) {
-        // TODO: implement this.
-        return 0.0;
+        return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
     }
 
     /**
@@ -37,8 +36,7 @@ public class Assignment3 {
      *   - if a = 12 and p = 5, returns false
      */
     public static boolean isFactor(int a, int p) {
-        // TODO: implement this.
-        return false;
+        return a % p == 0;
     }
 
     /**
@@ -50,8 +48,11 @@ public class Assignment3 {
      * Example: turnUpTo11("a") == "aaaaaaaaaaa"
      */
     public static String turnUpTo11(String s) {
-        // TODO: implement this.
-        return "";
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 11; i++) {
+            builder.append(s);
+        }
+        return builder.toString();
     }
 
     /**
@@ -64,8 +65,7 @@ public class Assignment3 {
      * - isBetween(5, 4, 7) == false
      */
     public static boolean isBetween(int a, int b, int c) {
-        // TODO: implement this.
-        return false;
+        return a <= b && b <= c;
     }
 
     /**
@@ -84,8 +84,14 @@ public class Assignment3 {
      * - countZs("philz") == 1
      */
     public static int countZs(String s) {
-        // TODO
-        return 0;
+        int count = 0;
+        int len = s.length();
+        for (int i = 0; i < len; i++) {
+            if (s.substring(i, i+1).equals("z")) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -97,8 +103,7 @@ public class Assignment3 {
      * Example: getThousandthDigit(9876543) == 5
      */
     public static int getThousandthDigit(int num) {
-        // TODO
-        return 0;
+        return (num % 10000) / 1000;
     }
 
     /**
@@ -112,8 +117,13 @@ public class Assignment3 {
      * - countDivisibleBy7(6, 22) == 3
      */
     public static int countDivisibleBy7(int lower, int upper) {
-        // TODO: implement this.
-        return 0;
+        int count = 0;
+        for (int i = lower; i <= upper; i++) {
+            if (i % 7 == 0) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -126,9 +136,14 @@ public class Assignment3 {
      * - sumDivisibleBy7and4(28, 28) == 28
      * - sumDivisibleBy7and4(28, 57) == 84 (28 plus 56)
      */
-    public static int sumDivisibleBy7and4(int lower, int upper) {
-        // TODO: implement this.
-        return 0;
+    public static long sumDivisibleBy7and4(long lower, long upper) {
+        long sum = 0;
+        for (long i = lower; i <= upper; i++) {
+            if (i % 7 == 0 && i % 4 == 0) {
+                sum += i;
+            }
+        }
+        return sum;
     }
 
 
@@ -149,8 +164,19 @@ public class Assignment3 {
      * - whizZap(1, 15) == "12Whiz4ZapWhiz78WhizZap11Whiz1314WhizZap"
      */
     public static String whizZap(int lower, int upper) {
-        // TODO: implement this.
-        return "";
+        StringBuilder builder = new StringBuilder();
+        for (int i = lower; i <= upper; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                builder.append("WhizZap");
+            } else if (i % 3 == 0) {
+                builder.append("Whiz");
+            } else if (i % 5 == 0) {
+                builder.append("Zap");
+            } else {
+                builder.append(Integer.toString(i));
+            }
+        }
+        return builder.toString();
     }
 
 
@@ -162,7 +188,7 @@ public class Assignment3 {
      *
      * Example: If num = 9876543 and n = 5, then output should be 7.
      */
-    public static int getNthDigit(int num, int n) {
+    public static int getNthDigit(long num, int n) {
         // TODO: implement this
         return 0;
     }
