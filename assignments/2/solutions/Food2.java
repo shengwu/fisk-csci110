@@ -21,6 +21,7 @@ public class Food2 {
             } else {
                 num_foods += 1;
                 System.out.println("One of your favorite foods is " + food);
+
                 // Now get up to three recommendations
                 int num_recs = 0;
                 String recommendation = "";

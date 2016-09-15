@@ -5,6 +5,10 @@ public class Four {
             System.getProperty("line.separator"));
 
     public static void main(String[] args) {
+        String time = new String("");
+        String bored = new String("BORED");
+        int num = 0;
+
         // This program asks the user for up to FOUR of their
         // favorite times of day. 
         //
@@ -12,10 +16,6 @@ public class Four {
         // will stop asking and quit.
         //
         // But something's funky about this program.
-
-        String time = new String("");
-        String bored = new String("BORED");
-        int num = 0;
 
         while (time != bored && num <= 4) {
             System.out.print("What's one of your favorite times of day? ");
