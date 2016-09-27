@@ -24,6 +24,7 @@ public class Assignment3 {
      */
     public static double getDistance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
+        // Alternatively, Math.hypot(x1-x2, y1-y2);
     }
 
     /**
@@ -179,6 +180,14 @@ public class Assignment3 {
         return builder.toString();
     }
 
+    public static void main(String[] args) {
+        System.out.println(simplifyMinutes(4));
+        System.out.println(simplifyMinutes(45));
+        System.out.println(simplifyMinutes(450));
+        System.out.println(simplifyMinutes(4500));
+        System.out.println(simplifyMinutes(45000));
+    }
+
 
     /**
      * Bonus A (10 points)
@@ -188,9 +197,19 @@ public class Assignment3 {
      *
      * Example: If num = 9876543 and n = 5, then output should be 7.
      */
-    public static int getNthDigit(long num, int n) {
-        // TODO: implement this
-        return 0;
+    public static int getNthDigit(int num, int n) {
+        // For the example, helper becomes 10**5 == 100000. It will
+        // help us chop digits off of the front.
+        //
+        // 9876543 % 100000 == 76543, which we need the leading digit of.
+        // Then 76543 / 10000 == 7
+        //
+        // Here we have to cast to int by writing (int)
+        // This is because Math.round() returns a 'long', which is a
+        // higher-precision integer than int. So we have to explicitly
+        // tell the compiler "it's okay if we truncate some digits"
+        int helper = (int) Math.round(Math.pow(10, n));
+        return (num % helper) / (helper / 10);
     }
 
     /**
@@ -210,10 +229,12 @@ public class Assignment3 {
      *           days = 1, hours = 1, minutes = 0
      */
     public static List<Integer> simplifyMinutes(int time_in_min) {
-        // TODO
-        int days = 0;
-        int hours = 0;
-        int minutes = 0;
+        int mins_in_hour = 60;
+        int mins_in_day = mins_in_hour * 24;
+
+        int days = time_in_min / mins_in_day;
+        int hours = (time_in_min % mins_in_day) / mins_in_hour;
+        int minutes = time_in_min % mins_in_hour;
         return Arrays.asList(days, hours, minutes);
     }
 }
