@@ -165,6 +165,11 @@ public class Assignment3 {
      * - whizZap(1, 15) == "12Whiz4ZapWhiz78WhizZap11Whiz1314WhizZap"
      */
     public static String whizZap(int lower, int upper) {
+        // I've used a StringBuilder here but you could add the Strings.
+        //
+        // Using a StringBuilder is slightly more efficient because when you
+        // add Strings, a new copy of the String is created each time you add
+        // and re-assign. This is because Strings are immutable.
         StringBuilder builder = new StringBuilder();
         for (int i = lower; i <= upper; i++) {
             if (i % 3 == 0 && i % 5 == 0) {
@@ -179,15 +184,6 @@ public class Assignment3 {
         }
         return builder.toString();
     }
-
-    public static void main(String[] args) {
-        System.out.println(simplifyMinutes(4));
-        System.out.println(simplifyMinutes(45));
-        System.out.println(simplifyMinutes(450));
-        System.out.println(simplifyMinutes(4500));
-        System.out.println(simplifyMinutes(45000));
-    }
-
 
     /**
      * Bonus A (10 points)

@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * Assignment 3 (100 points)
- * Due: TODO
+ * Due: 11:59 pm on Thursday, September 22
  *
  * Implement each of the following functions. Verify their correctness
  * using the tests in Assignment3Test.java.
