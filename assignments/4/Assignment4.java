@@ -22,18 +22,21 @@ public class Assignment4 {
      * ---------------
      *
      * Say you had a problem like this:
+     *
 
     public static ArrayList<Integer> getOneThruFive() {
         // TODO: implement this.
         return new ArrayList<Integer>();
     }
 
+     *
      * The documentation above the function says "Returns an ArrayList
      * containing the numbers 1 through 5." To solve this problem, you would
      * write something like this:
+     *
 
     public static ArrayList<Integer> getOneThruFive() {
-        ArrayList<Integer> oneThruFive =  new ArrayList<Integer>();
+        ArrayList<Integer> oneThruFive = new ArrayList<Integer>();
         oneThruFive.add(1);
         oneThruFive.add(2);
         oneThruFive.add(3);
@@ -42,12 +45,21 @@ public class Assignment4 {
         return oneThruFive;
     }
 
+     *
      * After implementing the function, you would run the tests to make sure
-     * the tests for this function pass:
+     * the tests for this function pass. Run the tests by running the following
+     * two commands on the command line:
      *
      * javac Assignment4.java Assignment4Test.java
      * java org.junit.runner.JUnitCore Assignment4Test
+     *
+     * If you're not using jUnit installed on your own computer, please see
+     * these instructions for running jUnit in the lab:
+     *      https://sheng.io/fisk/tips/junit_in_lab/
      */
+
+
+
 
 
     /**
@@ -59,7 +71,7 @@ public class Assignment4 {
      * For example, if nums is [1 2 3 4 5 6 7 8 9 10], then this function
      * should return [1 7].
      *
-     * If nums is [3], this function should return [3 0] since there is no
+     * If nums is [3], this function should return [3 -1] since there is no
      * seventh element.
      */
     public static ArrayList<Integer> getFirstAndSeventh(ArrayList<Integer> nums) {

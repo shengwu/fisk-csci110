@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * Assignment 3 (100 points)
- * Due: TODO
+ * SOLUTIONS
  *
  * Implement each of the following functions. Verify their correctness
  * using the tests in Assignment3Test.java.
@@ -157,7 +157,7 @@ public class Assignment3 {
      * and five print "WhizZap".
      *
      * Don't print anything. Return the values concatenated together in a String.
-     * 
+     *
      * Integer.toString(...) can be used to convert an int to a String.
      *
      * Examples:
@@ -188,7 +188,7 @@ public class Assignment3 {
     /**
      * Bonus A (10 points)
      *
-     * Returns the nth digit in num. This is counting from the right, so 
+     * Returns the nth digit in num. This is counting from the right, so
      * n = 1 refers to the rightmost digit.
      *
      * Example: If num = 9876543 and n = 5, then output should be 7.
@@ -215,7 +215,7 @@ public class Assignment3 {
      *       days/hours/minutes. Store your results in variables named days, hours,
      *       and minutes and return a list containing those values in that order
      *       (construction of the list is done for you).
-     *  
+     *
      *   Example:
      *       If time = 15, then your result variables should be:
      *           days = 0, hours = 0, minutes = 15
