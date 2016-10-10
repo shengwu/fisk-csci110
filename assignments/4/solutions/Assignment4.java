@@ -1,3 +1,5 @@
+package assignment4;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +77,14 @@ public class Assignment4 {
      * If nums is [3], this function should return [-1] since there is no
      * seventh element.
      */
-    public static ArrayList<Integer> getFirstAndSeventh(ArrayList<Integer> nums) {
-        // TODO
-        return new ArrayList<Integer>();
+    public static ArrayList<Integer> getSeventh(ArrayList<Integer> nums) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        if (nums.size() < 7) {
+            result.add(-1);
+            return result;
+        }
+        result.add(nums.get(6));
+        return result;
     }
 
 
@@ -91,8 +98,12 @@ public class Assignment4 {
      * should return [3 6 9].
      */
     public static ArrayList<Integer> getThirdElements(ArrayList<Integer> nums) {
-        // TODO
-        return new ArrayList<Integer>();
+        ArrayList<Integer> thirdElems = new ArrayList<Integer>();
+        // Notice we start i at 2, which is the third element
+        for (int i = 2; i < nums.size(); i += 3) {
+            thirdElems.add(nums.get(i));
+        }
+        return thirdElems;
     }
 
 
@@ -107,7 +118,9 @@ public class Assignment4 {
      * parameter.
      */
     public static void makeAllFalse(ArrayList<Boolean> bools) {
-        // TODO
+        for (int i = 0; i < bools.size(); i++) {
+            bools.set(i, false);
+        }
     }
 
 
@@ -118,10 +131,15 @@ public class Assignment4 {
      *
      * For example, if doubles is [1.0 2.0 3.0 4.0 5.0 6.0 7.0 8.0], this
      * function should return 12.0.
+     *
+     * If doubles is [1.0 3.0 5.0] this function should return 0.0.
      */
     public static double sumEveryFourth(ArrayList<Double> doubles) {
-        // TODO
-        return 0.0;
+        double sum = 0.0;
+        for (int i = 3; i < doubles.size(); i += 4) {
+            sum += doubles.get(i);
+        }
+        return sum;
     }
 
 
@@ -136,7 +154,9 @@ public class Assignment4 {
      * your function should return ["You will receive an unexpected windfall in bed"].
      */
     public static void playPrank(ArrayList<String> fortunes) {
-        // TODO
+        for (int i = 0; i < fortunes.size(); i++) {
+            fortunes.set(i, fortunes.get(i) + " in bed");
+        }
     }
 
 
@@ -152,8 +172,12 @@ public class Assignment4 {
      * If nums is empty this function should return true.
      */
     public static boolean allMeetMinimum(ArrayList<Long> nums, long min) {
-        // TODO
-        return false;
+        for (long l : nums) {
+            if (l < min) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -168,7 +192,7 @@ public class Assignment4 {
      * c.setIsCute(false);
      * c.getIsCute();  // returns false since we set the cute attribute to false
      */
-    static class Cat {
+    public static class Cat {
         boolean isCute;
 
         public Cat(boolean isCute) {
@@ -184,15 +208,22 @@ public class Assignment4 {
         }
     }
 
+
     /**
      * Problem 6 (10 points)
      *
      * Counts the number of cute cats in 'cats'.
      */
     public static int countCuteCats(ArrayList<Cat> cats) {
-        // TODO
-        return 0;
+        int count = 0;
+        for (Cat cat : cats) {
+            if (cat.getIsCute()) {
+                count++;
+            }
+        }
+        return count;
     }
+
 
     /**
      * Problem 7 (10 points)
@@ -200,7 +231,9 @@ public class Assignment4 {
      * Shave all of the cats in 'cats' (i.e. make them not cute). 
      */
     public static void shaveCats(ArrayList<Cat> cats) {
-        // TODO
+        for (Cat cat : cats) {
+            cat.setIsCute(false);
+        }
     }
 
 
@@ -215,7 +248,11 @@ public class Assignment4 {
      * list should be [2 1 4 3 5].
      */
     public static void swapEveryOther(ArrayList<Integer> list) {
-        // TODO
+        for (int i = 0; i < list.size(); i += 2) {
+            int tmp = list.get(i);
+            list.set(i, list.get(i+1));
+            list.set(i+1, tmp);
+        }
     }
 
 
@@ -225,8 +262,11 @@ public class Assignment4 {
      * Returns the product of all of the elements in nums.
      */
     public static float getProduct(ArrayList<Float> nums) {
-        // TODO
-        return 0.0f;
+        float mult = 1.0f;
+        for (float f : nums) {
+            mult *= f;
+        }
+        return mult;
     }
 
 
@@ -236,8 +276,16 @@ public class Assignment4 {
      * Returns an ArrayList containing the first n digits of the fibonacci sequence.
      */
     public static ArrayList<Integer> getFibs(int n) {
-        // TODO
-        return new ArrayList<Integer>();
+        ArrayList<Integer> fibs = new ArrayList<Integer>();
+        int prev = 0;
+        int curr = 1;
+        for (int i = 0; i < n; i++) {
+            fibs.add(curr);
+            int tmp = curr;
+            curr += prev;
+            prev = curr;
+        }
+        return fibs;
     }
 
 
@@ -251,7 +299,12 @@ public class Assignment4 {
      * [ CUTE_CAT  NON_CUTE_CAT  CUTE_CAT  NON_CUTE_CAT  CUTE_CAT ]
      */
     public static ArrayList<Cat> getAlternatingCatList(int n) {
-        // TODO
-        return new ArrayList<Cat>();
+        boolean shouldBeCute = true;
+        ArrayList<Cat> cats = new ArrayList<Cat>();
+        for (int i = 0; i < n; i++) {
+            cats.add(new Cat(shouldBeCute));
+            shouldBeCute = !shouldBeCute;
+        }
+        return cats;
     }
 }
