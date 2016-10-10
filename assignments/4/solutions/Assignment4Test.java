@@ -1,6 +1,3 @@
-package assignment4;
-
-import static assignment4.Assignment4.Cat;
 import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -9,6 +6,16 @@ import org.junit.Test;
 
 /**
  * Tests for the functions in Assignment4.java.
+ *
+ * How to read these tests:
+ * ------------------------
+ * When there's a line like:
+ *      assertEquals(Arrays.asList(7), Assignment4.getSeventh(basic));
+ * the first value is what we want your code to produce. The call to
+ * Arrays.asList(7) is a shortcut to create an ArrayList<Integer> with
+ * one element, the integer 7. The second part,
+ * Assignment4.getSeventh(basic), calls the getSeventh() method and
+ * runs the code you've written.
  *
  * Remember, extra test cases are 1 point extra each up to 20 points.
  */
@@ -348,54 +355,54 @@ public class Assignment4Test {
 
     @Test
     public void testCountCuteCatsNoCats() {
-        assertEquals(0, Assignment4.countCuteCats(new ArrayList<Cat>()));
+        assertEquals(0, Assignment4.countCuteCats(new ArrayList<Assignment4.Cat>()));
     }
 
     @Test
     public void testCountCuteCatsOneCatNotCute() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
-        cats.add(new Cat(false));
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
+        cats.add(new Assignment4.Cat(false));
         assertEquals(0, Assignment4.countCuteCats(cats));
     }
 
     @Test
     public void testCountCuteCatsTwoCatsBothCute() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
-        cats.add(new Cat(true));
-        cats.add(new Cat(true));
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
+        cats.add(new Assignment4.Cat(true));
+        cats.add(new Assignment4.Cat(true));
         assertEquals(2, Assignment4.countCuteCats(cats));
     }
 
     @Test
     public void testCountCuteCatsTwoCatsBasic() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
-        cats.add(new Cat(true));
-        cats.add(new Cat(false));
-        cats.add(new Cat(true));
-        cats.add(new Cat(false));
-        cats.add(new Cat(false));
-        cats.add(new Cat(false));
-        cats.add(new Cat(true));
-        cats.add(new Cat(true));
-        cats.add(new Cat(false));
-        cats.add(new Cat(true));
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
+        cats.add(new Assignment4.Cat(true));
+        cats.add(new Assignment4.Cat(false));
+        cats.add(new Assignment4.Cat(true));
+        cats.add(new Assignment4.Cat(false));
+        cats.add(new Assignment4.Cat(false));
+        cats.add(new Assignment4.Cat(false));
+        cats.add(new Assignment4.Cat(true));
+        cats.add(new Assignment4.Cat(true));
+        cats.add(new Assignment4.Cat(false));
+        cats.add(new Assignment4.Cat(true));
         assertEquals(5, Assignment4.countCuteCats(cats));
     }
 
     @Test
     public void testCountCuteCatsTwoCatsLarge() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
         for (int i = 0; i < 50; i++) {
-            cats.add(new Cat(false));
+            cats.add(new Assignment4.Cat(false));
         }
         for (int i = 0; i < 40; i++) {
-            cats.add(new Cat(true));
+            cats.add(new Assignment4.Cat(true));
         }
         for (int i = 0; i < 30; i++) {
-            cats.add(new Cat(false));
+            cats.add(new Assignment4.Cat(false));
         }
         for (int i = 0; i < 40; i++) {
-            cats.add(new Cat(true));
+            cats.add(new Assignment4.Cat(true));
         }
         assertEquals(80, Assignment4.countCuteCats(cats));
     }
@@ -404,8 +411,8 @@ public class Assignment4Test {
 
     @Test
     public void testShaveCatsOne() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
-        cats.add(new Cat(true));
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
+        cats.add(new Assignment4.Cat(true));
         Assignment4.shaveCats(cats);
 
         // Look at the single cat in 'cats' to make sure it's no longer cute
@@ -415,10 +422,10 @@ public class Assignment4Test {
 
     @Test
     public void testShaveCatsFew() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
-        cats.add(new Cat(true));
-        cats.add(new Cat(false));
-        cats.add(new Cat(true));
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
+        cats.add(new Assignment4.Cat(true));
+        cats.add(new Assignment4.Cat(false));
+        cats.add(new Assignment4.Cat(true));
         Assignment4.shaveCats(cats);
 
         assertEquals(3, cats.size());
@@ -429,9 +436,9 @@ public class Assignment4Test {
 
     @Test
     public void testShaveCatsTen() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
         for (int i = 0; i < 10; i++) {
-            cats.add(new Cat(true));
+            cats.add(new Assignment4.Cat(true));
         }
         Assignment4.shaveCats(cats);
 
@@ -444,9 +451,9 @@ public class Assignment4Test {
 
     @Test
     public void testShaveCatsTenRandom() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
         for (int i = 0; i < 10; i++) {
-            cats.add(new Cat(random.nextDouble() > 0.5));
+            cats.add(new Assignment4.Cat(random.nextDouble() > 0.5));
         }
         Assignment4.shaveCats(cats);
 
@@ -459,9 +466,9 @@ public class Assignment4Test {
 
     @Test
     public void testShaveCatsManyRandom() {
-        ArrayList<Cat> cats = new ArrayList<Cat>();
+        ArrayList<Assignment4.Cat> cats = new ArrayList<Assignment4.Cat>();
         for (int i = 0; i < 10000; i++) {
-            cats.add(new Cat(random.nextDouble() > 0.5));
+            cats.add(new Assignment4.Cat(random.nextDouble() > 0.5));
         }
         Assignment4.shaveCats(cats);
 
@@ -494,6 +501,17 @@ public class Assignment4Test {
     }
 
     @Test
+    public void testSwapEveryOtherThree() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        testList.add(149);
+        testList.add(-482);
+        testList.add(-8899133);
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(Arrays.asList(-482, 149, -8899133), testList);
+    }
+
+    @Test
     public void testSwapEveryOtherBasic() {
         ArrayList<Integer> testList = new ArrayList<Integer>();
         for (int i = 0; i < 10; i++) {
@@ -502,6 +520,17 @@ public class Assignment4Test {
 
         Assignment4.swapEveryOther(testList);
         assertEquals(Arrays.asList(1, 0, 3, 2, 5, 4, 7, 6, 9, 8), testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherBasicOdd() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 11; i++) {
+            testList.add(i);
+        }
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(Arrays.asList(1, 0, 3, 2, 5, 4, 7, 6, 9, 8, 10), testList);
     }
 
     @Test
@@ -529,8 +558,8 @@ public class Assignment4Test {
         }
         ArrayList<Integer> expected = new ArrayList<Integer>();
         for (int i = 0; i < 10; i += 2) {
-            expected.add(random.nextInt(i+1));
-            expected.add(random.nextInt(i));
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
         }
         Assignment4.swapEveryOther(testList);
         assertEquals(expected, testList);
@@ -544,8 +573,8 @@ public class Assignment4Test {
         }
         ArrayList<Integer> expected = new ArrayList<Integer>();
         for (int i = 0; i < 10000; i += 2) {
-            expected.add(random.nextInt(i+1));
-            expected.add(random.nextInt(i));
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
         }
         Assignment4.swapEveryOther(testList);
         assertEquals(expected, testList);
@@ -559,8 +588,23 @@ public class Assignment4Test {
         }
         ArrayList<Integer> expected = new ArrayList<Integer>();
         for (int i = 0; i < 10000; i += 2) {
-            expected.add(random.nextInt(i+1));
-            expected.add(random.nextInt(i));
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
+        }
+        Assignment4.swapEveryOther(testList);
+        assertEquals(expected, testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherRandomNegative() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i++) {
+            testList.add(random.nextInt(10000) - 8000);
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i += 2) {
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
         }
         Assignment4.swapEveryOther(testList);
         assertEquals(expected, testList);

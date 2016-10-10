@@ -1,5 +1,3 @@
-package assignment4;
-
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -248,7 +246,12 @@ public class Assignment4 {
      * list should be [2 1 4 3 5].
      */
     public static void swapEveryOther(ArrayList<Integer> list) {
-        for (int i = 0; i < list.size(); i += 2) {
+        // Note the condition: i < list.size() - 1
+        //
+        // If we wrote i < list.size(), that wouldn't work for lists
+        // of odd length because i + 1 would be out of bounds past
+        // the end of the list.
+        for (int i = 0; i < list.size() - 1; i += 2) {
             int tmp = list.get(i);
             list.set(i, list.get(i+1));
             list.set(i+1, tmp);
@@ -275,15 +278,15 @@ public class Assignment4 {
      *
      * Returns an ArrayList containing the first n digits of the fibonacci sequence.
      */
-    public static ArrayList<Integer> getFibs(int n) {
-        ArrayList<Integer> fibs = new ArrayList<Integer>();
-        int prev = 0;
-        int curr = 1;
-        for (int i = 0; i < n; i++) {
+    public static ArrayList<Long> getFibs(int n) {
+        ArrayList<Long> fibs = new ArrayList<Long>();
+        long prev = 0;
+        long curr = 1;
+        for (long i = 0; i < n; i++) {
             fibs.add(curr);
-            int tmp = curr;
+            long tmp = curr;
             curr += prev;
-            prev = curr;
+            prev = tmp;
         }
         return fibs;
     }

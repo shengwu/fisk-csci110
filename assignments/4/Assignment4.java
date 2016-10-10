@@ -235,9 +235,9 @@ public class Assignment4 {
      *
      * Returns an ArrayList containing the first n digits of the fibonacci sequence.
      */
-    public static ArrayList<Integer> getFibs(int n) {
+    public static ArrayList<Long> getFibs(int n) {
         // TODO
-        return new ArrayList<Integer>();
+        return new ArrayList<Long>();
     }
 
 
