@@ -75,7 +75,7 @@ public class Assignment4 {
      * If nums is [3], this function should return [-1] since there is no
      * seventh element.
      */
-    public static ArrayList<Integer> getFirstAndSeventh(ArrayList<Integer> nums) {
+    public static ArrayList<Integer> getSeventh(ArrayList<Integer> nums) {
         // TODO
         return new ArrayList<Integer>();
     }
