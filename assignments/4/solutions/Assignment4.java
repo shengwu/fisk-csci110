@@ -87,7 +87,7 @@ public class Assignment4 {
 
 
     /**
-     * Problem 2 (10 points)
+     * Problem 2 (20 points)
      *
      * Returns an ArrayList containing every third element in nums. Does not
      * modify nums.

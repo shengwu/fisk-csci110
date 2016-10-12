@@ -76,7 +76,17 @@ public class Assignment4Test {
     @Test
     public void testGetThirdElementsEmpty() {
         ArrayList<Integer> empty = new ArrayList<Integer>();
-        assertEquals(Arrays.asList(), Assignment4.getThirdElements(empty));
+        ArrayList<Integer> empty2 = new ArrayList<Integer>();
+        assertEquals(empty2, Assignment4.getThirdElements(empty));
+    }
+
+    @Test
+    public void testGetThirdElementsTwo() {
+        ArrayList<Integer> testArray = new ArrayList<Integer>();
+        testArray.add(52);
+        testArray.add(163);
+        ArrayList<Integer> empty = new ArrayList<Integer>();
+        assertEquals(empty, Assignment4.getThirdElements(testArray));
     }
 
     @Test
@@ -86,6 +96,16 @@ public class Assignment4Test {
             basic.add(i);
         }
         assertEquals(Arrays.asList(3, 6, 9), Assignment4.getThirdElements(basic));
+    }
+
+    @Test
+    public void testGetThirdElementsBasicNegative() {
+        ArrayList<Integer> basic = new ArrayList<Integer>();
+        for (int i = -10; i <= 10; i++) {
+            basic.add(i);
+        }
+        assertEquals(Arrays.asList(-8, -5, -2, 1, 4, 7, 10),
+                     Assignment4.getThirdElements(basic));
     }
 
     @Test
@@ -119,6 +139,50 @@ public class Assignment4Test {
         }
         ArrayList<Integer> expected = new ArrayList<Integer>();
         for (int i = 57788; i < 90000; i += 3) {
+            expected.add(i);
+        }
+        assertEquals(expected, Assignment4.getThirdElements(basic));
+    }
+
+    @Test
+    public void testGetThirdElementsBasicJumps() {
+        ArrayList<Integer> basic = new ArrayList<Integer>();
+        basic.add(45);
+        basic.add(109);
+        basic.add(-45);
+        basic.add(23);
+        basic.add(52);
+        basic.add(12);
+        basic.add(59);
+        basic.add(-19999);
+        basic.add(884);
+        basic.add(8124);
+        basic.add(495);
+        assertEquals(Arrays.asList(-45, 12, 884),
+                     Assignment4.getThirdElements(basic));
+    }
+
+    @Test
+    public void testGetThirdElementsLongJumps() {
+        ArrayList<Integer> basic = new ArrayList<Integer>();
+        for (int i = 57786; i < 90000; i += 7) {
+            basic.add(i);
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = 57800; i < 90000; i += 21) {
+            expected.add(i);
+        }
+        assertEquals(expected, Assignment4.getThirdElements(basic));
+    }
+
+    @Test
+    public void testGetThirdElementsLongNegativeJumps() {
+        ArrayList<Integer> basic = new ArrayList<Integer>();
+        for (int i = -90000; i < 40000; i += 70) {
+            basic.add(i);
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = -89860; i < 40000; i += 210) {
             expected.add(i);
         }
         assertEquals(expected, Assignment4.getThirdElements(basic));

@@ -82,13 +82,16 @@ public class Assignment4 {
 
 
     /**
-     * Problem 2 (10 points)
+     * Problem 2 (20 points)
      *
      * Returns an ArrayList containing every third element in nums. Does not
      * modify nums.
      *
      * For example, if nums is [1 2 3 4 5 6 7 8 9 10], then this function
      * should return [3 6 9].
+     *
+     * If nums is [1], this function should return [] since there are no
+     * third elements.
      */
     public static ArrayList<Integer> getThirdElements(ArrayList<Integer> nums) {
         // TODO
