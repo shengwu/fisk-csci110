@@ -159,7 +159,7 @@ public class Assignment4 {
 
 
     /**
-     * Problem 6 (10 points)
+     * Problem 6 (20 points)
      *
      * Returns true if every element in nums is greater than or equal to
      * a minimum value 'min'.
@@ -208,7 +208,7 @@ public class Assignment4 {
 
 
     /**
-     * Problem 6 (10 points)
+     * Problem 7 (10 points)
      *
      * Counts the number of cute cats in 'cats'.
      */
@@ -224,7 +224,7 @@ public class Assignment4 {
 
 
     /**
-     * Problem 7 (10 points)
+     * Problem 8 (10 points)
      *
      * Shave all of the cats in 'cats' (i.e. make them not cute). 
      */
@@ -236,7 +236,7 @@ public class Assignment4 {
 
 
     /**
-     * Problem 9 (20 points)
+     * Extra credit (20 points)
      *
      * Modifies the ArrayList by swapping the first and second, the third and fourth,
      * elements. If there's an odd number of elements, the final element should be

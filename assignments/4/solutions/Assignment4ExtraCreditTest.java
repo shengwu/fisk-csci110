@@ -11,6 +11,137 @@ public class Assignment4ExtraCreditTest {
     private static final double EPS = 0.000000000000001;
     private static final Random random = new Random();
 
+    // swapEveryOther
+
+    @Test
+    public void testSwapEveryOtherSingle() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        testList.add(500);
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(Arrays.asList(500), testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherOnePair() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        testList.add(500);
+        testList.add(10000);
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(Arrays.asList(10000, 500), testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherThree() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        testList.add(149);
+        testList.add(-482);
+        testList.add(-8899133);
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(Arrays.asList(-482, 149, -8899133), testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherBasic() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i++) {
+            testList.add(i);
+        }
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(Arrays.asList(1, 0, 3, 2, 5, 4, 7, 6, 9, 8), testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherBasicOdd() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 11; i++) {
+            testList.add(i);
+        }
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(Arrays.asList(1, 0, 3, 2, 5, 4, 7, 6, 9, 8, 10), testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherLong() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 10000; i++) {
+            testList.add(i);
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = 0; i < 10000; i += 2) {
+            expected.add(i + 1);
+            expected.add(i);
+        }
+
+        Assignment4.swapEveryOther(testList);
+        assertEquals(expected, testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherRandom() {
+        // Creates a list of random numbers between 0 and 799
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i++) {
+            testList.add(random.nextInt(800));
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i += 2) {
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
+        }
+        Assignment4.swapEveryOther(testList);
+        assertEquals(expected, testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherRandomLong() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 10000; i++) {
+            testList.add(random.nextInt(800));
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = 0; i < 10000; i += 2) {
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
+        }
+        Assignment4.swapEveryOther(testList);
+        assertEquals(expected, testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherRandomLongNegative() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 10000; i++) {
+            testList.add(random.nextInt(1000) - 500);
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = 0; i < 10000; i += 2) {
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
+        }
+        Assignment4.swapEveryOther(testList);
+        assertEquals(expected, testList);
+    }
+
+    @Test
+    public void testSwapEveryOtherRandomNegative() {
+        ArrayList<Integer> testList = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i++) {
+            testList.add(random.nextInt(10000) - 8000);
+        }
+        ArrayList<Integer> expected = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i += 2) {
+            expected.add(testList.get(i+1));
+            expected.add(testList.get(i));
+        }
+        Assignment4.swapEveryOther(testList);
+        assertEquals(expected, testList);
+    }
+
 
     // getProduct
 
