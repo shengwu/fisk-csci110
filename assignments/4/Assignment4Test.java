@@ -10,7 +10,9 @@ import org.junit.Test;
  * How to read these tests:
  * ------------------------
  * When there's a line like:
+ *
  *      assertEquals(Arrays.asList(7), Assignment4.getSeventh(basic));
+ *
  * the first value is what we want your code to produce. The call to
  * Arrays.asList(7) is a shortcut to create an ArrayList<Integer> with
  * one element, the integer 7. The second part,
@@ -22,6 +24,8 @@ import org.junit.Test;
 public class Assignment4Test {
     private static final double EPS = 0.000000000000001;
     private static final Random random = new Random();
+
+    // getSeventh
 
     @Test
     public void testGetSeventhEmpty() {
@@ -131,6 +135,7 @@ public class Assignment4Test {
         expected.add(false);
         assertEquals(expected, testArray);
     }
+
     // sumEveryFourth
 
     @Test

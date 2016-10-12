@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Assignment 4: ArrayLists (100 points)
- * Due: Sunday, October 9 at 11:59 pm
+ * Due: Monday, October 17 at 11:59 pm
  *
  * Implement each of the following functions. Verify their correctness
  * using the tests in Assignment4Test.java.
