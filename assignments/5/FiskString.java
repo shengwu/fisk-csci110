@@ -2,23 +2,32 @@
  * Assignment 5: Arrays and Strings
  * Due: TODO
  *
- * Implement a FiskString class using an array of chars. FiskString
- * is a replica of Java's String class.
+ * Your job is to recreate Java's built-in String class using
+ * an array of char. This means you cannot use any of the methods
+ * in the actual String class or the related TODO libraries.
  *
- * Do not use Java's String class.
+ * When you're done, the tests in FiskStringTest.java will
+ * make sure your code works as expected.
+ *
+ * Please write the following methods:
+ * - 
+ *
+ * Two methods have already been written:
+ * - the constructor
+ * - the length() method
  */
 public class FiskString {
     private char[] data;
 
     /**
-     * Constructs a new FiskString from a char[].
+     * Constructs a new FiskString from a sequence of chars.
      */
-    public FiskString(char[] data) {
-        this.data = data;
+    public FiskString(char... chars) {
+        this.data = chars;
     }
 
     /**
-     * EXAMPLE: Returns the length of this FiskString.
+     * EXAMPLE/TUTORIAL: Returns the length of this FiskString.
      *
      * This problem would have looked something like this:
 
@@ -27,10 +36,13 @@ public class FiskString {
         return 0;
     }
 
-     * The solution is below. 
+     * What is this question asking? Well, the documentation says "returns
+     * the length of this FiskString." That means we have to tell the caller
+     * how many characters are contained in this FiskString.
      *
-     * The length of the string is the length of the char[] named data, which
-     * is what we use to store the information in this FiskString.
+     * Where do we store the characters in this FiskString? In the char[]
+     * named "data". How do we get the number of elements in "data"? With
+     * the length attribute.
      */
     public int length() {
         return data.length;
@@ -44,7 +56,7 @@ public class FiskString {
      */
     public char charAt(int i) {
         // TODO
-        return 'z';
+        return 'Z';
     }
 
     /**
