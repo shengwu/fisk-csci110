@@ -1,34 +1,26 @@
+import java.util.*;
 
-/**
- * The following class contains several logic errors. Please
- * fix them and describe the errors in comments near where you
- * found the errors.
- */
-public class Three {
+// There are 5 bugs in this Division program. 
+//
+// Fix them all so that it correctly outputs the results of double and integer
+// division, and the result of integer modulus given the user input numerator
+// and denominator.
+//
+// There are compilation and logic errors.
 
-    /**
-     * You might notice that there are multiple functions with the same name.
-     * This is strange, because when we have variables with the same name,
-     * we get a compilation error. However, this file compiles fine.
-     *
-     * This is because of a feature called *function overloading*. Consider the
-     * different combinations of parameters:
-     * TODO
-     *
-     * When you compile this file, the compiler looks at each function call
-     * to TODO and tries to match it up to the correct version.
-     */
-
-    static void getTotal(String s) {
-    }
-
-    static void getTotal(String s, boolean b) {
-    }
-
-    static void getTotal(String s, double d) {
-    }
-
+class Three {
     public static void main(String[] args) {
-        // TODO
+        Scanner keyboard = new Scanner(System.out);
+        System.out.println("Enter the numerator: ");
+        int numerator = keyboard.nextInt();
+        double doubleNumerator = numerator;
+
+        System.out.println("Enter the divisor: ");
+        int divisor = keyboard.nextInt()
+        double doubleDivisor = divisor;
+
+        System.out.println("" + numerator + " % " + divisor + " = " + numerator / divisor);
+        System.out.println("" + numerator++ + " / " + divisor + " = " + numerator % divisor);
+        System.out.println("" + doubleNumerator + " / " + doubleDivisor + " = " + doubleNumerator/doubleDivisor);
     }
 }

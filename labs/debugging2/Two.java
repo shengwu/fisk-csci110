@@ -3,6 +3,7 @@
  * The following class contains runtime errors. Please fix them and describe
  * the errors in comments near where you found the errors.
  */
+
 public class Two {
 
     static int mystery(int[] arr) {
