@@ -246,6 +246,54 @@ public class FiskStringTest {
     }
 
 
+    // makeUpperCase method
+
+    @Test
+    public void testMakeUpperCaseEmpty() {
+        FiskString testString = new FiskString();
+        testString.makeUpperCase();
+
+        FiskString expected = new FiskString();
+        assertTrue(expected.equals(testString));
+    }
+
+    @Test
+    public void testMakeUpperCaseBasic() {
+        FiskString testString = new FiskString('h', 'e', 'l', 'l', 'o');
+        testString.makeUpperCase();
+
+        FiskString expected = new FiskString('H', 'E', 'L', 'L', 'O');
+        assertTrue(expected.equals(testString));
+    }
+
+    @Test
+    public void testMakeUpperCaseMixedCase() {
+        FiskString testString = new FiskString('h', 'E', 'l', 'L', 'O');
+        testString.makeUpperCase();
+
+        FiskString expected = new FiskString('H', 'E', 'L', 'L', 'O');
+        assertTrue(expected.equals(testString));
+    }
+
+    @Test
+    public void testMakeUpperCaseNumbersOk() {
+        FiskString testString = new FiskString('4', '3', 'l', 'L', '0');
+        testString.makeUpperCase();
+
+        FiskString expected = new FiskString('4', '3', 'L', 'L', '0');
+        assertTrue(expected.equals(testString));
+    }
+
+    @Test
+    public void testMakeUpperCasePunctuationOk() {
+        FiskString testString = new FiskString('&', '#', 'l', 'L', '@', '!');
+        testString.makeUpperCase();
+
+        FiskString expected = new FiskString('&', '#', 'L', 'L', '@', '!');
+        assertTrue(expected.equals(testString));
+    }
+
+
 
     // getCopy() extra credit method
     // TODO

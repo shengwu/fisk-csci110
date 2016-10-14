@@ -62,6 +62,7 @@ public class FiskString {
     }
 
 
+
     /**
      * Problem 1: 20 points
      *
@@ -79,18 +80,17 @@ public class FiskString {
     /**
      * Problem 2: 20 points
      *
-     * Returns true if this FiskString has the same characters as the other
-     * FiskString.
+     * Sets a character at a given index.
+     *
+     * Returns true if we were able to successfully set the char. Returns
+     * false if the operation failed (i.e. the index was out of bounds).
      */
-    public boolean equals(FiskString other) {
-        if (this.length() != other.length()) {
+    public boolean setChar(int i, char c) {
+        if (i < 0 || i >= length()) {
+            // index was out of bounds
             return false;
         }
-        for (int i = 0; i < length(); i++) {
-            if (this.charAt(i) != other.charAt(i)) {
-                return false;
-            }
-        }
+        data[i] = c;
         return true;
     }
 
@@ -99,18 +99,32 @@ public class FiskString {
     /**
      * Problem 3: 20 points
      *
-     * Sets a character at a certain position.
-     *
-     * Returns true if we were able to successfully set the char. Returns
-     * false if the operation failed (i.e. the index was out of bounds).
+     * Returns true if this FiskString has the same characters as the other
+     * FiskString.
      */
-    public boolean setChar(int i, char c) {
-        if (i < 0 || i >= length()) {
+    public boolean equals(FiskString other) {
+        // Two FiskStrings cannot be equal if they have different lengths.
+        //
+        // This also lets us avoid dealing with uneven FiskStrings in the loop
+        // below.
+        if (this.length() != other.length()) {
             return false;
         }
-        data[i] = c;
+        // Compare this FiskString to the other character-by-character. As soon
+        // as we find a pair that are different, we know the FiskStrings are not
+        // equal.
+        for (int i = 0; i < length(); i++) {
+            if (this.charAt(i) != other.charAt(i)) {
+                return false;
+            }
+        }
         return true;
+
+        // Alternatively, you could solve this with:
+        //   return this.startsWith(other) && other.startsWith(this);
     }
+
+
 
 
     /**
@@ -139,10 +153,12 @@ public class FiskString {
      */
     public boolean startsWith(FiskString other) {
         if (other.length() > this.length()) {
-            // If the other FiskString is longer, then it's impossible
-            // for this FiskString to start with it.
+            // If the other FiskString is longer, then it's impossible for this
+            // FiskString to start with it.
             return false;
         }
+        // Go along "other" and make sure that each of the characters are in
+        // the beginning of this FiskString.
         for (int i = 0; i < other.length(); i++) {
             if (this.charAt(i) != other.charAt(i)) {
                 return false;
@@ -155,8 +171,32 @@ public class FiskString {
 
     /**
      * Problem 5: 20 points
-     * TODO
+     *
+     * Changes this FiskString to have all uppercase letters.
+     *
+     * For example, if this FiskString contains "hElLo", after calling
+     * this function this FiskString should contain "HELLO".
+     *
+     * HINT: Look at the numbers corresponding to lowercase letters
+     * vs uppercase letters in an ASCII table
+     * e.g. http://web.cs.mun.ca/~michael/c/ascii-table.html
      */
+    public void makeUpperCase() {
+        for (int i = 0; i < data.length; i++) {
+            // If you look at the ASCII table, 'a' is represented by 97 and 'z'
+            // is represented by 122. And 'A' is represented by 65 and 'Z' is
+            // represented by 90. This is no accident: A is 32 less than a, B
+            // is 32 less than b, etc.
+            //
+            // To convert all letters to uppercase, we iterate along the
+            // characters in 'data'. If the character is a lowercase letter,
+            // then we subtract 32 to turn the character into an uppercase
+            // character.
+            if (data[i] >= 97 && data[i] <= 122) {
+                data[i] -= 32;
+            }
+        }
+    }
 
 
 
@@ -167,6 +207,16 @@ public class FiskString {
      * in the original FiskString should not change the contents of the copy.
      */
     public FiskString getCopy() {
+        // One errorneus implementation would be:
+        //
+        //   return new FiskString(this.data);
+        //
+        // This creates a new FiskString that's the same, but the new FiskString
+        // also points to the data inside this FiskString. This means if we alter
+        // the new FiskString, it also changes this FiskString.
+        //
+        // To avoid this, we create a new data array of the same size and copy
+        // the old one into it character-by-character.
         char[] copy = new char[this.length()];
         for (int i = 0; i < this.length(); i++) {
             copy[i] = data[i];
