@@ -18,6 +18,8 @@ class EnglishTranslator {
     static final String[] british = {"got", "colour", "honour", "centre", "dialogue", "defence",
         "recognise", "bonnet", "boot", "lorry", "flat", "wust", "fust", "gul"};
 
+// TODO: make this a little easier by removing the offset braces error
+//
     // Given sentences, converts all contained words in from to the equivalent in to.
     static boolean translate(ArrayList<String> sentences, String[] from, String[] to) {
         for (int i = 1; i < sentences.size(); ++i) {
