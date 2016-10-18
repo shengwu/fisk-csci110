@@ -1,15 +1,21 @@
 /**
  * Assignment 5: Arrays and Strings
- * Due: TODO
+ * Due: Sunday, October 30 at 11:59 pm
  *
- * Your job is to create a version of Java's built-in String class using an
- * array of chars. This means you cannot use any of the methods in the actual
- * String class, ArrayList class, or any built-in libraries that help you
+ * Create a version of Java's built-in String class using an array of chars.
+ *
+ * You cannot use any of the methods in the actual String class, ArrayList
+ * class, Arrays class, or any other built-in libraries that help you
  * manipulate Strings or arrays.
  *
- *
  * When you're done, the tests in FiskStringTest.java will make sure your code
- * works as expected.
+ * works as expected. As before, compile and test like this:
+ *
+ *   javac FiskString.java FiskStringTest.java
+ *   java org.junit.runner.JUnitCore FiskStringTest
+ *
+ * Or if you're doing this in the lab, see the instructions here:
+ * https://sheng.io/fisk/tips/junit_in_lab/
  *
  * Two methods have already been written:
  * - the constructor
@@ -22,11 +28,11 @@ public class FiskString {
     /**
      * Constructs a new FiskString from a sequence of chars.
      *
-     * Example use:
+     * Example usage:
      *
      * FiskString fs = new FiskString('h', 'e', 'l', 'l', 'o');
      *
-     * OR
+     * // OR
      *
      * char[] chars = new char[3];
      * chars[0] = 'a';
@@ -40,7 +46,9 @@ public class FiskString {
 
 
     /**
-     * EXAMPLE/TUTORIAL: Returns the length of this FiskString.
+     * EXAMPLE/TUTORIAL
+     *
+     * Returns the length of this FiskString.
      *
      * This problem would have looked something like this:
 
@@ -110,6 +118,7 @@ public class FiskString {
         if (this.length() != other.length()) {
             return false;
         }
+
         // Compare this FiskString to the other character-by-character. As soon
         // as we find a pair that are different, we know the FiskStrings are not
         // equal.
@@ -181,6 +190,12 @@ public class FiskString {
      * vs uppercase letters in an ASCII table
      * e.g. http://web.cs.mun.ca/~michael/c/ascii-table.html
      */
+
+    // Here are a couple of constants so that we don't have "magic numbers"
+    // i.e. numbers that don't mean anything to people reading the code.
+    private static final char lowercaseA = 97;
+    private static final char lowercaseZ = 122;
+
     public void makeUpperCase() {
         for (int i = 0; i < data.length; i++) {
             // If you look at the ASCII table, 'a' is represented by 97 and 'z'
@@ -192,7 +207,7 @@ public class FiskString {
             // characters in 'data'. If the character is a lowercase letter,
             // then we subtract 32 to turn the character into an uppercase
             // character.
-            if (data[i] >= 97 && data[i] <= 122) {
+            if (data[i] >= lowercaseA && data[i] <= lowercaseZ) {
                 data[i] -= 32;
             }
         }
