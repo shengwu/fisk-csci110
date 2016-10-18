@@ -2,11 +2,23 @@
  * Assignment 5: Arrays and Strings
  * Due: Sunday, October 30 at 11:59 pm
  *
- * Create a version of Java's built-in String class using an array of chars.
+ * In this assignment, you'll write a version of Java's built-in String class.
+ * Remember how with String objects, you can do things like this:
+ *
+ * String s = "hello";
+ * boolean b = s.equals("goodbye");   // false
+ * boolean b2 = s.contains("llo");    // true
+ *
+ * Now it's your job to implement these methods work inside a class called
+ * FiskString. Some of the setup has already been done for you. There's a
+ * private member variable called "data" that is an array of char. The
+ * constructor and the length() method have already been written.
  *
  * You cannot use any of the methods in the actual String class, ArrayList
  * class, Arrays class, or any other built-in libraries that help you
  * manipulate Strings or arrays.
+ *
+ * ---
  *
  * When you're done, the tests in FiskStringTest.java will make sure your code
  * works as expected. As before, compile and test like this:
@@ -16,10 +28,6 @@
  *
  * Or if you're doing this in the lab, see the instructions here:
  * https://sheng.io/fisk/tips/junit_in_lab/
- *
- * Two methods have already been written:
- * - the constructor
- * - the length() method
  */
 public class FiskString {
     // Holds the characters in this FiskString.
