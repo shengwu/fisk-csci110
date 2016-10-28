@@ -9,7 +9,7 @@
  * boolean b = s.equals("goodbye");   // false
  * boolean b2 = s.contains("llo");    // true
  *
- * Now it's your job to implement these methods work inside a class called
+ * Now it's your job to implement these methods inside a class called
  * FiskString. Some of the setup has already been done for you. There's a
  * private member variable called "data" that is an array of char. The
  * constructor and the length() method have already been written.
