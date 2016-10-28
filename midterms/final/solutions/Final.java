@@ -47,31 +47,42 @@ public class Final {
         /**
          * Creates a new Contestant.
          */
-        // TODO
-
+        public Contestant(String name, String auditionLocation, double score) {
+            this.name = name;
+            this.auditionLocation = auditionLocation;
+            this.score = score;
+        }
 
         /**
          * Returns the name of this contestant.
          */
-        // TODO
+        public String getName() {
+            return name;
+        }
 
 
         /**
          * Returns the audition location of this contestant.
          */
-        // TODO
+        public String getAuditionLocation() {
+            return auditionLocation;
+        }
 
 
         /**
          * Returns the score of this contestant.
          */
-        // TODO
+        public double getScore() {
+            return score;
+        }
 
 
         /**
          * Changes the score of this contestant to a specific value.
          */
-        // TODO
+        public void setScore(double newScore) {
+            score = newScore;
+        }
     }
 
 
@@ -96,8 +107,12 @@ public class Final {
             ArrayList<String> names,
             ArrayList<String> auditionLocations,
             ArrayList<Double> scores) {
-        // TODO
-        return new ArrayList<Contestant>();
+        ArrayList<Contestant> contestants = new ArrayList<Contestant>();
+        for (int i = 0; i < names.size(); i++) {
+            contestants.add(
+                    new Contestant(names.get(i), auditionLocations.get(i), scores.get(i)));
+        }
+        return contestants;
     }
 
 
@@ -126,16 +141,25 @@ public class Final {
      */
     public static HashMap<String, ArrayList<Contestant>> getLocationLookup(
             ArrayList<Contestant> allContestants) {
-        // TODO
-
         // Step 1: create a new HashMap that's going to be your result
+        HashMap<String, ArrayList<Contestant>> result =
+                new HashMap<String, ArrayList<Contestant>>();
 
         // Step 2: add empty ArrayList<Contestant> entries for each possible location
+        for (Contestant c : allContestants) {
+            if (!result.containsKey(c.getAuditionLocation())) {
+                ArrayList<Contestant> newEmpty = new ArrayList<Contestant>();
+                result.put(c.getAuditionLocation(), newEmpty);
+            }
+        }
 
         // Step 3: go through allContestants and add each contestant to his/her
         // audition location ArrayList in your result
+        for (Contestant c : allContestants) {
+            result.get(c.getAuditionLocation()).add(c);
+        }
 
-        return new HashMap<String, ArrayList<Contestant>>();
+        return result;
     }
 
 
