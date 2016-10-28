@@ -1,7 +1,9 @@
-
 /**
- * YOUR FINAL
+ * FINAL EXAM
  * ----------
+ * 1000 points
+ *
+ * WRITE YOUR NAME HERE: 
  *
  * Congratulations, you're done with CSCI 110! Almost.
  *
@@ -14,10 +16,12 @@
  * - people who auditioned in some places might be at a disadvantage
  *   because judges at there were harder than others
  *
+ * In this exam, you'll write a series of functions to automatically process a
+ * year's worth of audition data. One such year has been included in a file
+ * named test.csv, but the code you write should work for any other similarly
+ * formatted file, including ones that have hundreds of thousands of entries.
  *
- * Some parts are already written for you:
- * - the part that reads in the comma-separated spreadsheet file
- * - 
+ * Use the tests in FinalTest.java to test your code with JUnit.
  */
 
 import java.util.ArrayList;
@@ -101,15 +105,35 @@ public class Final {
     /**
      * Problem 3: 200 points
      *
-     * Takes an ArrayList containing all contestants, and creates a HashMap
+     * Takes an ArrayList containing all contestants, and creates a HashMap that
+     * maps FROM location TO all contestants who auditioned there.
+     *
+     * For example, if allContestaints contained the following data:
+     *   Taylor Swift, NYC, 5.0
+     *   Nicki Minaj, NYC, 6.0
+     *   Lil B, Oakland, 2.0
+     *   Kendrick Lamar, LA, 7.0
+     *
+     * Then this function should return a HashMap with the following keys and values:
+     *   NYC: [Taylor Swift, Nicki Minaj]
+     *   Oakland: [Lil B]
+     *   LA: [Kendrick Lamar]
+     *
+     * Such a HashMap lets us quickly look up all of the contestants that
+     * auditioned at a particular location.
+     *
+     * Each value is an ArrayList of Contestants.
      */
     public static HashMap<String, ArrayList<Contestant>> getLocationLookup(
             ArrayList<Contestant> allContestants) {
         // TODO
 
-        // Step 1:
+        // Step 1: create a new HashMap that's going to be your result
 
-        // Step 2:
+        // Step 2: add empty ArrayList<Contestant> entries for each possible location
+
+        // Step 3: go through allContestants and add each contestant to his/her
+        // audition location ArrayList in your result
 
         return new HashMap<String, ArrayList<Contestant>>();
     }
@@ -119,7 +143,20 @@ public class Final {
     /**
      * Problem 4: 200 points
      *
-     * Adjust 
+     * Normalizes the scores of all contestants who auditioned in a location.
+     *
+     * This is a process of correcting for a specific judge's tendency to be
+     * harsher or more leinient on the contestants he or she evaluated.
+     *
+     * How do we do this?
+     * 1) Compute the mean of all scores from a location
+     * 2) Compute the standard deviation of all scores from a location
+     * 3) Subtract the mean from all scores, so that the mean score is now 0
+     * 4) Divide all of the scores from (3) by the standard deviation
+     *
+     * After doing this calculation, update each contestant's score
+     * using the getScore to compute the new score, then using setScore
+     * to save the normalized score back to the Contestant object.
      *
      * NOTE: all of the contestants passed in the contestantsInALocation
      * are from the same location!
@@ -211,7 +248,7 @@ public class Final {
         ArrayList<String> auditionLocations = new ArrayList<String>();
         ArrayList<Double> scores = new ArrayList<Double>();
 
-
+        // Start processing the data from the spreadsheet
         ArrayList<Contestant> allContestants = getContestantList(
                 names, auditionLocations, scores);
 
