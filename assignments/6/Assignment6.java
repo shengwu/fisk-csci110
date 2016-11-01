@@ -46,4 +46,19 @@ public class Assignment6 {
         return new HashMap<Character, Integer>();
     }
 
+    /**
+     * Problem 3: 10 points
+     *
+     * Counts the occurrences of uppercase As, Bs, and Cs in 's'.
+     *
+     * Example: if given the string "BALLOON", this function should return a
+     * HashMap containing:
+     *     A: 1
+     *     B: 1
+     */
+    public HashMap<Character, Integer> countAsBsandCs(String s) {
+        return new HashMap<Character, Integer>();
+    }
+
+
 }
