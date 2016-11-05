@@ -25,7 +25,7 @@ public class Assignment6 {
      *     5: false
      *     6: true
      */
-    public HashMap<Integer, Boolean> enumerateDivisibleBy3() {
+    public static HashMap<Integer, Boolean> enumerateDivisibleBy3() {
         HashMap<Integer, Boolean> result = new HashMap<Integer, Boolean>();
         for (int i = 1; i <= 100; i++) {
             result.put(i, i % 3 == 0);
@@ -39,6 +39,30 @@ public class Assignment6 {
     /**
      * Problem 2: 10 points
      *
+     * Returns true if 's' contains at least 10 distinct characters. This method
+     * should be case-sensitive (i.e. uppercase letters are distinct from
+     * lowercase letters).
+     *
+     * For example, 'hellohello' would result in false because
+     * it only has 4 distinct letters: h, e, l, and o
+     *
+     * Hint: what are methods that you can use to count how many entries
+     * are in a HashMap?
+     */
+    public static boolean hasAtLeast10Distinct(String s) {
+        HashMap<Character, Boolean> result = new HashMap<Character, Boolean>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            result.put(c, true);
+        }
+        return result.keySet().size() >= 10;
+    }
+
+
+
+    /**
+     * Problem 3: 10 points
+     *
      * Counts the occurrences of uppercase As, Bs, and Cs in 's'. The HashMap
      * should not contain entries for any other letters.
      *
@@ -47,7 +71,7 @@ public class Assignment6 {
      *     A: 1
      *     B: 1
      */
-    public HashMap<Character, Integer> countAsBsandCs(String s) {
+    public static HashMap<Character, Integer> countAsBsandCs(String s) {
         HashMap<Character, Integer> result = new HashMap<Character, Integer>();
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
@@ -66,31 +90,7 @@ public class Assignment6 {
 
 
     /**
-     * Problem 3: 10 points
-     *
-     * Returns true if 's' contains at least 10 distinct letters. This method
-     * should be case-sensitive (i.e. uppercase letters are distinct from
-     * lowercase letters).
-     *
-     * For example, 'hellohello' would result in false because
-     * it only has 4 distinct letters: h, e, l, and o
-     *
-     * Hint: what are methods that you can use to count how many entries
-     * are in a HashMap?
-     */
-    public boolean hasAtLeast10Distinct(String s) {
-        HashMap<Character, Boolean> result = new HashMap<Character, Boolean>();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            result.put(c, true);
-        }
-        return result.keySet().size() >= 10;
-    }
-
-
-
-    /**
-     * Problem 4: 10 points
+     * Problem 4: 16 points
      *
      * Compresses a sequence of coin tosses. Each run of heads (H) or tails (T)
      * should be replaced by the letter and then the number of occurrences right
@@ -102,7 +102,7 @@ public class Assignment6 {
      * Hint: this is an example of a problem where it's not helpful to use a
      * HashMap.
      */
-    public String compressCoinTosses(String coinTosses) {
+    public static String compressCoinTosses(String coinTosses) {
         if (coinTosses.length() == 0) {
             return "";
         }
@@ -134,7 +134,7 @@ public class Assignment6 {
     /**
      * Problem 5: 10 points
      *
-     * Creates a lookup table from zip codes to cities. The ith zip code in
+     * Creates a lookup table from zip codes to city names. The ith zip code in
      * 'zipCodes' matches the ith city in 'cities'.
      *
      * For example, if given zipCodes = ["74074", "37219"] and cities =
@@ -143,8 +143,8 @@ public class Assignment6 {
      *   74074: Stillwater, OK
      *   37219: Nashville, TN
      */
-    public HashMap<String, String> createZipLookup(ArrayList<String> zipCodes,
-            ArrayList<String> cities) {
+    public static HashMap<String, String> createZipLookup(
+            ArrayList<String> zipCodes, ArrayList<String> cities) {
         HashMap<String, String> zipToCity = new HashMap<String, String>();
         for (int i = 0; i < zipCodes.size(); i++) {
             zipToCity.put(zipCodes.get(i), cities.get(i));
@@ -155,7 +155,7 @@ public class Assignment6 {
 
 
     /**
-     * Problem 6: 20 points
+     * Problem 6: 14 points
      *
      * Returns true if all of the words in 'sentence' are valid words.
      * 'dictionary' is a provided HashSet that contains all of the valid
@@ -173,7 +173,7 @@ public class Assignment6 {
      * into individual words.
      * http://docs.oracle.com/javase/7/docs/api/java/lang/String.html#split(java.lang.String)
      */
-    public boolean allValidWords(String sentence, HashSet<String> dictionary) {
+    public static boolean allValidWords(String sentence, HashSet<String> dictionary) {
         String[] words = sentence.split(" ");
         for (int i = 0; i < words.length; i++) {
             if (!dictionary.contains(words[i])) {
@@ -200,7 +200,7 @@ public class Assignment6 {
      *   'AK': 2
      *   'NY': 3
      */
-    public HashMap<String, Integer> countCities(
+    public static HashMap<String, Integer> countCities(
             HashMap<String, ArrayList<String>> stateToCities) {
         HashMap<String, Integer> cityCounts = new HashMap<String, Integer>();
         for (String city : stateToCities.keySet()) {
@@ -215,7 +215,7 @@ public class Assignment6 {
     /**
      * Used for problem 8. Do not change.
      */
-    public class Dog {
+    public static class Dog {
         private double tailWag;
 
         public Dog(double tailWag) {
@@ -225,35 +225,35 @@ public class Assignment6 {
         public double getTailWag() {
             return tailWag;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || o.getClass() != Dog.class) {
+                return false;
+            }
+            return this.tailWag == ((Dog) o).tailWag;
+        }
     }
 
     /**
      * Problem 8: 20 points
      *
-     * Sorts an array of Dogs in descending order by tailWag. Uses selection sort
-     * sort (no use of built-in or other prewritten sorting libraries allowed).
+     * Sorts an array of Dogs in descending order by tailWag. Uses insertion sort
+     * (no use of built-in or other prewritten sorting libraries allowed).
      */
-
-    void swap(Dog[] dogs, int a, int b) {
-        Dog tmp = dogs[a];
-        dogs[a] = dogs[b];
-        dogs[b] = tmp;
-    }
-
-    public void sort(Dog[] dogs) {
+    public static void sort(Dog[] dogs) {
         for (int i = 1; i < dogs.length; i++) {
             Dog curr = dogs[i];
-            // Insert it in the appropriate place in the sorted portion
-            for (int j = i-1; j >= 0; j--) {
-                if (curr.getTailWag() > dogs[j].getTailWag()) {
-                    // If the one we're looking at 
-                    dogs[j+1] = dogs[j];
-                } else {
-                    // put the dog in the j+1st spot (where we just made room)
-                    dogs[j+1] = curr;
-                    break;
-                }
+            int j;
+            // move dogs aside that have less tailWag than 'curr'
+            for (j = i - 1;
+                    j >= 0 && curr.getTailWag() > dogs[j].getTailWag();
+                    j--) {
+                dogs[j+1] = dogs[j];
             }
+            // once the for loop stops, we've arrived at the right place
+            // to put the 'curr' dog
+            dogs[j+1] = curr;
         }
     }
 
@@ -264,10 +264,10 @@ public class Assignment6 {
      * EXTRA CREDIT: 12 points
      *
      * Badly hashes a String by returning the product of its ASCII character values
-     * mod 'mod'.
+     * mod 491.
      *
-     * Example: given "hello" and 566, this function would return 156 which is
-     * (104 * 101 * 108 * 108 * 111) % 566
+     * Example: given "hello", this function would return 116 which is
+     * (104 * 101 * 108 * 108 * 111) % 491
      *
      * Hint: you'll quickly run into overflow problems (the numbers you're
      * multiplying will quickly become too large to fit into an int, which
@@ -275,15 +275,14 @@ public class Assignment6 {
      *   (a mod n)(b mod n) == ab mod n
      * https://en.wikipedia.org/wiki/Modular_arithmetic#Remainders
      *
-     * Why is this hash bad? Because by using the product of the char values,
+     * Why is this hash dumb? Because by using the product of the char values,
      * a String like "abc" will hash to the same value as "cba".
      */
-    public int badHash(String s, int mod) {
+    public static int dumbHash(String s) {
         int acc = 1;
         for (int i = 0; i < s.length(); i++) {
-            acc = (acc * s.charAt(i)) % mod;
+            acc = (acc * s.charAt(i)) % 491;
         }
         return acc;
     }
-
 }
