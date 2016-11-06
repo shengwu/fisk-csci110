@@ -1,6 +1,8 @@
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
@@ -396,6 +398,26 @@ public class Assignment6Test {
     }
 
     @Test
+    public void testAllValidWordsAFew() {
+        HashSet<String> dict = new HashSet<String>();
+        dict.add("foo");
+        dict.add("bar");
+        dict.add("baz");
+        dict.add("a");
+        dict.add("b");
+        dict.add("c");
+        assertTrue(Assignment6.allValidWords("foo", dict));
+        assertTrue(Assignment6.allValidWords("foo bar a", dict));
+        assertTrue(Assignment6.allValidWords("bar baz baz bar b", dict));
+        assertTrue(Assignment6.allValidWords("bar foo foo", dict));
+        assertTrue(Assignment6.allValidWords("baz baz a b c b a b c a b c", dict));
+        assertFalse(Assignment6.allValidWords("hello world", dict));
+        assertFalse(Assignment6.allValidWords("a b c d", dict));
+        assertFalse(Assignment6.allValidWords("d b c a", dict));
+        assertFalse(Assignment6.allValidWords("food bar", dict));
+    }
+
+    @Test
     public void testAllValidWordsRandom() {
         HashSet<String> dict = new HashSet<String>();
         ArrayList<String> words = new ArrayList<String>();
@@ -421,6 +443,34 @@ public class Assignment6Test {
             assertFalse(Assignment6.allValidWords(sentence, dict));
         }
     }
+
+    @Test
+    public void testAllValidWordsShort() {
+        HashSet<String> dict = new HashSet<String>();
+        ArrayList<String> words = new ArrayList<String>();
+        for (int i = 0; i < 25; i++) {
+            String rand = getRandomString();
+            dict.add(rand);
+            words.add(rand);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            Collections.shuffle(words);
+            String sentence = String.join(" ", words);
+            assertTrue(Assignment6.allValidWords(sentence, dict));
+        }
+
+        // Add some invalid words to 'words'
+        // (f you're reading this, this is bad, lazy code)
+        words.add("whatarethechances");
+
+        for (int i = 0; i < 100; i++) {
+            Collections.shuffle(words);
+            String sentence = String.join(" ", words);
+            assertFalse(Assignment6.allValidWords(sentence, dict));
+        }
+    }
+
 
 
     @Test
@@ -449,6 +499,34 @@ public class Assignment6Test {
             assertFalse(Assignment6.allValidWords(sentence, dict));
         }
     }
+
+    @Test
+    public void testAllValidWordsRandomMedium() {
+        HashSet<String> dict = new HashSet<String>();
+        ArrayList<String> words = new ArrayList<String>();
+        for (int i = 0; i < 200; i++) {
+            String rand = getRandomString();
+            dict.add(rand);
+            words.add(rand);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            Collections.shuffle(words);
+            String sentence = String.join(" ", words);
+            assertTrue(Assignment6.allValidWords(sentence, dict));
+        }
+
+        // Add some invalid words to 'words'
+        // (f you're reading this, this is bad, lazy code)
+        words.add("whatarethechances");
+
+        for (int i = 0; i < 100; i++) {
+            Collections.shuffle(words);
+            String sentence = String.join(" ", words);
+            assertFalse(Assignment6.allValidWords(sentence, dict));
+        }
+    }
+
 
     @Test
     public void testAllValidWordsRandomLonger() {
@@ -483,6 +561,102 @@ public class Assignment6Test {
 
     // countCities()
 
+    @Test
+    public void testCountCitiesSingle() {
+        HashMap<String, ArrayList<String>> stateToCities =
+            new HashMap<String, ArrayList<String>>();
+        ArrayList<String> cities = new ArrayList<String>();
+        cities.add("Stockholm");
+        cities.add("Huddinge");
+        cities.add("Solna");
+        stateToCities.put("Sweden", cities);
+
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        expected.put("Sweden", 3);
+
+        assertEquals(expected, Assignment6.countCities(stateToCities));
+    }
+
+    @Test
+    public void testCountCitiesDouble() {
+        HashMap<String, ArrayList<String>> stateToCities =
+            new HashMap<String, ArrayList<String>>();
+        ArrayList<String> cities = new ArrayList<String>();
+        cities.add("Stillwater");
+        cities.add("Norman");
+        cities.add("Tulsa");
+        ArrayList<String> cities2 = new ArrayList<String>();
+        cities2.add("Dallas");
+        stateToCities.put("Oklahoma", cities);
+        stateToCities.put("Texas", cities2);
+
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        expected.put("Oklahoma", 3);
+        expected.put("Texas", 1);
+
+        assertEquals(expected, Assignment6.countCities(stateToCities));
+    }
+
+    @Test
+    public void testCountCitiesRandom() {
+        int NUM_ELEMENTS = 10;
+        HashMap<String, ArrayList<String>> stateToCities =
+            new HashMap<String, ArrayList<String>>();
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            int numCities = random.nextInt(10);
+            String state = getRandomString();
+            ArrayList<String> cities = new ArrayList<String>();
+            for (int j = 0; j < numCities; j++) {
+                cities.add(getRandomString());
+            }
+            stateToCities.put(state, cities);
+            expected.put(state, numCities);
+        }
+
+        assertEquals(expected, Assignment6.countCities(stateToCities));
+    }
+
+    @Test
+    public void testCountCitiesRandomMore() {
+        int NUM_ELEMENTS = 60;
+        HashMap<String, ArrayList<String>> stateToCities =
+            new HashMap<String, ArrayList<String>>();
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            int numCities = random.nextInt(10);
+            String state = getRandomString();
+            ArrayList<String> cities = new ArrayList<String>();
+            for (int j = 0; j < numCities; j++) {
+                cities.add(getRandomString());
+            }
+            stateToCities.put(state, cities);
+            expected.put(state, numCities);
+        }
+
+        assertEquals(expected, Assignment6.countCities(stateToCities));
+    }
+
+    @Test
+    public void testCountCitiesRandomLots() {
+        int NUM_ELEMENTS = 100;
+        HashMap<String, ArrayList<String>> stateToCities =
+            new HashMap<String, ArrayList<String>>();
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            int numCities = random.nextInt(10);
+            String state = getRandomString();
+            ArrayList<String> cities = new ArrayList<String>();
+            for (int j = 0; j < numCities; j++) {
+                cities.add(getRandomString());
+            }
+            stateToCities.put(state, cities);
+            expected.put(state, numCities);
+        }
+
+        assertEquals(expected, Assignment6.countCities(stateToCities));
+    }
+
 
 
 
@@ -508,6 +682,185 @@ public class Assignment6Test {
         assertArrayEquals(expected, orig);
     }
 
+    @Test
+    public void testSortFive() {
+        Assignment6.Dog[] orig = {
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(20.0),
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(40.0),
+            new Assignment6.Dog(80.0)};
+        Assignment6.Dog[] expected = {
+            new Assignment6.Dog(80.0),
+            new Assignment6.Dog(40.0),
+            new Assignment6.Dog(20.0),
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(10.0)};
+        Assignment6.sort(orig);
+        assertArrayEquals(expected, orig);
+    }
+
+    @Test
+    public void testSortNegative() {
+        Assignment6.Dog[] orig = {
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(-20.0),
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(-40.0),
+            new Assignment6.Dog(-80.0)};
+        Assignment6.Dog[] expected = {
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(-20.0),
+            new Assignment6.Dog(-40.0),
+            new Assignment6.Dog(-80.0)};
+        Assignment6.sort(orig);
+        assertArrayEquals(expected, orig);
+    }
+
+    @Test
+    public void testSortMix() {
+        Assignment6.Dog[] orig = {
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(20.0),
+            new Assignment6.Dog(-30.0),
+            new Assignment6.Dog(40.0),
+            new Assignment6.Dog(-50.0)};
+        Assignment6.Dog[] expected = {
+            new Assignment6.Dog(40.0),
+            new Assignment6.Dog(20.0),
+            new Assignment6.Dog(10.0),
+            new Assignment6.Dog(-30.0),
+            new Assignment6.Dog(-50.0)};
+        Assignment6.sort(orig);
+        assertArrayEquals(expected, orig);
+    }
+
+    private class DogDescComparator implements Comparator<Assignment6.Dog> {
+        @Override
+        public int compare(Assignment6.Dog a, Assignment6.Dog b) {
+            if (a.getTailWag() > b.getTailWag()) {
+                return -1;
+            } else if (b.getTailWag() > a.getTailWag()) {
+                return 1;
+            }
+            return 0;
+        }
+    }
+
+    @Test
+    public void testSortRandom() {
+        int NUM_ELEMENTS = 10;
+        // Use ArrayList so we can use Collections.shuffle
+        ArrayList<Assignment6.Dog> orig = new ArrayList<Assignment6.Dog>();
+        Assignment6.Dog[] expected = new Assignment6.Dog[NUM_ELEMENTS];
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            double d = random.nextDouble();
+            orig.add(new Assignment6.Dog(d));
+            expected[i] = new Assignment6.Dog(d);
+        }
+        Collections.shuffle(orig);
+        Assignment6.Dog[] arrayOrig = new Assignment6.Dog[1];
+        arrayOrig = orig.toArray(arrayOrig);
+
+        Arrays.sort(expected, new DogDescComparator());
+        Assignment6.sort(arrayOrig);
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], arrayOrig[i]);
+        }
+    }
+
+    @Test
+    public void testSortRandomMany() {
+        int NUM_ELEMENTS = 100;
+        // Use ArrayList so we can use Collections.shuffle
+        ArrayList<Assignment6.Dog> orig = new ArrayList<Assignment6.Dog>();
+        Assignment6.Dog[] expected = new Assignment6.Dog[NUM_ELEMENTS];
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            double d = random.nextDouble();
+            orig.add(new Assignment6.Dog(d));
+            expected[i] = new Assignment6.Dog(d);
+        }
+        Collections.shuffle(orig);
+        Assignment6.Dog[] arrayOrig = new Assignment6.Dog[1];
+        arrayOrig = orig.toArray(arrayOrig);
+
+        Arrays.sort(expected, new DogDescComparator());
+        Assignment6.sort(arrayOrig);
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], arrayOrig[i]);
+        }
+    }
+
+    @Test
+    public void testSortRandomNegative() {
+        int NUM_ELEMENTS = 10;
+        // Use ArrayList so we can use Collections.shuffle
+        ArrayList<Assignment6.Dog> orig = new ArrayList<Assignment6.Dog>();
+        Assignment6.Dog[] expected = new Assignment6.Dog[NUM_ELEMENTS];
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            double d = random.nextDouble() - 2;
+            orig.add(new Assignment6.Dog(d));
+            expected[i] = new Assignment6.Dog(d);
+        }
+        Collections.shuffle(orig);
+        Assignment6.Dog[] arrayOrig = new Assignment6.Dog[1];
+        arrayOrig = orig.toArray(arrayOrig);
+
+        Arrays.sort(expected, new DogDescComparator());
+        Assignment6.sort(arrayOrig);
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], arrayOrig[i]);
+        }
+    }
+
+    @Test
+    public void testSortRandomManyNegative() {
+        int NUM_ELEMENTS = 100;
+        // Use ArrayList so we can use Collections.shuffle
+        ArrayList<Assignment6.Dog> orig = new ArrayList<Assignment6.Dog>();
+        Assignment6.Dog[] expected = new Assignment6.Dog[NUM_ELEMENTS];
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            double d = random.nextDouble() - 200;
+            orig.add(new Assignment6.Dog(d));
+            expected[i] = new Assignment6.Dog(d);
+        }
+        Collections.shuffle(orig);
+        Assignment6.Dog[] arrayOrig = new Assignment6.Dog[1];
+        arrayOrig = orig.toArray(arrayOrig);
+
+        Arrays.sort(expected, new DogDescComparator());
+        Assignment6.sort(arrayOrig);
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], arrayOrig[i]);
+        }
+    }
+
+    @Test
+    public void testSortRandomManyMix() {
+        int NUM_ELEMENTS = 100;
+        // Use ArrayList so we can use Collections.shuffle
+        ArrayList<Assignment6.Dog> orig = new ArrayList<Assignment6.Dog>();
+        Assignment6.Dog[] expected = new Assignment6.Dog[NUM_ELEMENTS];
+        for (int i = 0; i < NUM_ELEMENTS; i++) {
+            double d = random.nextDouble() - 0.5;
+            orig.add(new Assignment6.Dog(d));
+            expected[i] = new Assignment6.Dog(d);
+        }
+        Collections.shuffle(orig);
+        Assignment6.Dog[] arrayOrig = new Assignment6.Dog[1];
+        arrayOrig = orig.toArray(arrayOrig);
+
+        Arrays.sort(expected, new DogDescComparator());
+        Assignment6.sort(arrayOrig);
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], arrayOrig[i]);
+        }
+    }
+
+
+
+
 
     // dumbHash()
     // uncomment to test extra credit
@@ -515,6 +868,31 @@ public class Assignment6Test {
     @Test
     public void testDumbHashBasic() {
         assertEquals(116, Assignment6.dumbHash("hello"));
+    }
+
+    @Test
+    public void testDumbHashBasic2() {
+        assertEquals(266, Assignment6.dumbHash("hello world!"));
+    }
+
+    @Test
+    public void testDumbHashPunctuation() {
+        assertEquals(184, Assignment6.dumbHash("!@#$%^&*()"));
+    }
+
+    @Test
+    public void testDumbHashSpaces() {
+        assertEquals(268, Assignment6.dumbHash("       "));
+    }
+
+    @Test
+    public void testDumbHashSentence() {
+        assertEquals(103, Assignment6.dumbHash("the quick brown fox jumped over the lazy dog"));
+    }
+
+    @Test
+    public void testDumbHashMaryPoppins() {
+        assertEquals(96, Assignment6.dumbHash("Supercalifragilisticexpialidocious"));
     }
 
 }

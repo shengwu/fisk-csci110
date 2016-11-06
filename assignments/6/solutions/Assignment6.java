@@ -56,6 +56,7 @@ public class Assignment6 {
             result.put(c, true);
         }
         return result.keySet().size() >= 10;
+        // Alternatively, use a HashSet
     }
 
 
