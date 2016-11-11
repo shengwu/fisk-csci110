@@ -6,6 +6,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Music {
+
+    // Increase to make your song faster, decrease to make it slower
+    private static final int BPM = 120;
+
+
+
     // DO NOT TOUCH BELOW THIS LINE
     // ----------------------------
     private static final Random random = new Random();
@@ -20,7 +26,6 @@ public class Music {
     private static int[] rhythm = new int[SONG_LEN];
 
     // Increase the beats per minute to determine how fast the song goes
-    private static final int BPM = 90;
     private static final int MS_BETWEEN_SIXTEENTH_NOTES = 1000 * 60 / BPM / 4;
 
     private static int getEndOfSong() {
@@ -44,6 +49,9 @@ public class Music {
     }
 
     private static void notesOff(MidiChannel[] mc, int i) {
+        if (i < 0) {
+            return;
+        }
         if (notes[i] != -1) {
             mc[0].noteOff(notes[i], NOTE_VELOCITY);
         }
@@ -60,9 +68,7 @@ public class Music {
         }
 
         // Play all of the notes
-        notesOn(mc, 0);
-        Thread.sleep(MS_BETWEEN_SIXTEENTH_NOTES);
-        for (int i = 1; i <= endOfSong; i++) {
+        for (int i = 0; i <= endOfSong; i++) {
             notesOff(mc, i-1);
             notesOn(mc, i);
             Thread.sleep(MS_BETWEEN_SIXTEENTH_NOTES);
@@ -117,6 +123,8 @@ public class Music {
         Arrays.fill(notes, -1);
         Arrays.fill(rhythm, -1);
 
+        // TODO TODO TODO
+        //
         // COMPOSE YOUR SONG HERE
         //
         // TIP: WRITE FUNCTIONS THAT GENERATE SEQUENCES OF NOTES
