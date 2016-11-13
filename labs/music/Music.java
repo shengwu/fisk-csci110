@@ -8,7 +8,7 @@ import javax.swing.border.*;
 public class Music {
 
     // Increase to make your song faster, decrease to make it slower
-    private static final int BPM = 120;
+    private static final int BPM = 90;
 
 
 
@@ -106,7 +106,8 @@ public class Music {
         // Adds an ascending scale to 'notes' starting at time 't'
         int startNote = getRandomNote();
         for (int i = 0; i < 8; i++) {
-            notes[i+t] = startNote + scale[i];
+            //notes[i+t] = startNote + scale[i];
+            notes[i+t] = getRandomNote();
         }
     }
 
@@ -119,6 +120,26 @@ public class Music {
 
 
 
+    private static int[] warmup = {0, 2, 4, 5, 7, 5, 4, 2};
+    static void addWarmUpAt(int start, int t) {
+        // Adds an ascending scale to 'notes' starting at time 't'
+        for (int i = 0; i < 8; i++) {
+            notes[i+t] = start + warmup[i];
+        }
+        notes[t + 8] = start;
+        notes[t + 10] = start + 12;
+        notes[t + 12] = start;
+    }
+
+    static void vocalWarmUp() {
+        int start = 80;
+        for (int i = 0; i < 32; i += 16) {
+            addWarmUpAt(start, i);
+            start++;
+        }
+    }
+
+
     public static void main(String[] args) throws Exception {
         Arrays.fill(notes, -1);
         Arrays.fill(rhythm, -1);
@@ -129,7 +150,13 @@ public class Music {
         //
         // TIP: WRITE FUNCTIONS THAT GENERATE SEQUENCES OF NOTES
 
-        genRandomScales();
+        //genRandomScales();
+
+        vocalWarmUp();
+
+
+
+
 
         // Here's an example of code you could write to directly set notes.
         //
