@@ -12,7 +12,7 @@
  * for a spot on the show next season.
  *
  * This presents a few challenges:
- * - doing this all by hand would take forever!
+ * - picking the contestants by hand would take forever!
  * - people who auditioned in some places might be at a disadvantage
  *   because judges at there were harder than others
  *
@@ -37,7 +37,7 @@ public class Final {
      * - a getName method
      * - a getAuditionLocation method
      * - a getScore method
-     * - a setScore method that alters the score of a Contestant
+     * - a setScore method
      */
     static class Contestant {
         private String name;
@@ -69,7 +69,7 @@ public class Final {
 
 
         /**
-         * Changes the score of this contestant to a specific value.
+         * Sets the score of this contestant to a specific value.
          */
         // TODO
     }

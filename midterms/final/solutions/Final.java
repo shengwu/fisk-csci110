@@ -12,16 +12,18 @@
  * for a spot on the show next season.
  *
  * This presents a few challenges:
- * - doing this all by hand would take forever!
+ * - selecting contestants by hand would take forever!
  * - people who auditioned in some places might be at a disadvantage
- *   because judges at there were harder than others
+ *   because judges there were harder than judges elsewhere
  *
  * In this exam, you'll write a series of functions to automatically process a
  * year's worth of audition data. One such year has been included in a file
- * named test.csv, but the code you write should work for any other similarly
- * formatted file, including ones that have hundreds of thousands of entries.
+ * named test.csv. The code you write should work for any other similarly
+ * formatted file, including ones that have thousands of entries.
  *
- * Use the tests in FinalTest.java to test your code with JUnit.
+ * Use the tests in FinalTest.java to test your code with JUnit:
+ *   javac Final.java FinalTest.java
+ *   java org.junit.runner.JUnitCore FinalTest
  */
 
 import java.util.ArrayList;
@@ -110,7 +112,9 @@ public class Final {
         ArrayList<Contestant> contestants = new ArrayList<Contestant>();
         for (int i = 0; i < names.size(); i++) {
             contestants.add(
-                    new Contestant(names.get(i), auditionLocations.get(i), scores.get(i)));
+                    new Contestant(names.get(i),
+                                   auditionLocations.get(i),
+                                   scores.get(i)));
         }
         return contestants;
     }
@@ -138,6 +142,11 @@ public class Final {
      * auditioned at a particular location.
      *
      * Each value is an ArrayList of Contestants.
+     *
+     * Hint: first create an empty HashMap with all location keys:
+     *   NYC:
+     *   Oakland:
+     *   LA:
      */
     public static HashMap<String, ArrayList<Contestant>> getLocationLookup(
             ArrayList<Contestant> allContestants) {
@@ -173,21 +182,73 @@ public class Final {
      * harsher or more leinient on the contestants he or she evaluated.
      *
      * How do we do this?
-     * 1) Compute the mean of all scores from a location
-     * 2) Compute the standard deviation of all scores from a location
+     * 1) Compute the mean of all scores (from a given location)
+     * 2) Compute the standard deviation of all scores
      * 3) Subtract the mean from all scores, so that the mean score is now 0
      * 4) Divide all of the scores from (3) by the standard deviation
      *
-     * After doing this calculation, update each contestant's score
-     * using the getScore to compute the new score, then using setScore
-     * to save the normalized score back to the Contestant object.
+     * After doing this calculation, update each contestant's score using the
+     * setScore method to save the normalized score back to the Contestant
+     * object.
      *
      * NOTE: all of the contestants passed in the contestantsInALocation
      * are from the same location!
      */
     public static void normalizeScoresByLocation(
             ArrayList<Contestant> contestantsInALocation) {
-        // TODO
+        // Copy the scores into an ArrayList<Double>
+        ArrayList<Double> scores = new ArrayList<Double>();
+        for (Contestant c : contestantsInALocation) {
+            scores.add(c.getScore());
+        }
+
+        // Compute the mean of all scores
+        double mean = getMean(scores);
+
+        // Compute the standard deviation
+        double stdDev = getStandardDeviation(scores);
+
+        // Subtract the mean from all scores
+        for (int i = 0; i < scores.size(); i++) {
+            scores.set(i, scores.get(i) - mean);
+        }
+
+        // Divide all of the scores by the standard deviation
+        for (int i = 0; i < scores.size(); i++) {
+            scores.set(i, scores.get(i) / stdDev);
+        }
+
+        // Update each contestant's score
+        for (int i = 0; i < contestantsInALocation.size(); i++) {
+            contestantsInALocation.get(i).setScore(
+                    scores.get(i));
+        }
+    }
+
+
+    /**
+     * DO NOT TOUCH
+     * but feel free to use
+     *
+     * Helper functions to use in the above method.
+     */
+    private static double getMean(
+            ArrayList<Double> numbers) {
+        double total = 0.0;
+        for (double d : numbers) {
+            total += d;
+        }
+        return total / numbers.size();
+    }
+
+    private static double getStandardDeviation(
+            ArrayList<Double> numbers) {
+        double mean = getMean(numbers);
+        double temp = 0;
+        for (double d : numbers) {
+            temp += Math.pow(d - mean, 2);
+        }
+        return Math.sqrt(temp / numbers.size());
     }
 
 
@@ -253,7 +314,28 @@ public class Final {
 
 
 
+
+
+
+
+
+
+
+
     /**
+     * DO NOT TOUCH
+     *
+     * Badly reads in a CSV file. Does not handle numerous edge cases
+     * that a real CSV reader would handle.
+     */
+    static void badlyReadCsvFile(String fileName, ArrayList<String> names,
+            ArrayList<String> auditionLocations, ArrayList<Double> scores) {
+    }
+
+
+    /**
+     * DO NOT TOUCH
+     *
      * The main function never gets run if you're only testing the code.
      *
      * If you've finished everything and want to test your program on test.csv, 
@@ -262,15 +344,15 @@ public class Final {
     public static void main(String[] args) {
         // DO NOT TOUCH: reads in the CSV-format spreadsheet specified by the
         // first command line argument
-        if (args.length < 2) {
+        if (args.length < 1) {
             System.out.println("Usage: java Final <SPREADSHEET_FILE_NAME>");
             return;
         }
 
-        // TODO: read these in from a spreadsheet
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> auditionLocations = new ArrayList<String>();
         ArrayList<Double> scores = new ArrayList<Double>();
+        badlyReadCsvFile(args[0], names, auditionLocations, scores);
 
         // Start processing the data from the spreadsheet
         ArrayList<Contestant> allContestants = getContestantList(
