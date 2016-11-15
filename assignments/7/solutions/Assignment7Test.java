@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class Assignment7Test {
     }
 
     private ArrayList<Assignment7.Speaker> makeSpeakers(
-            ArrayList<Double> volumes, ArrayList<String> channels) {
+            List<Double> volumes, List<String> channels) {
         if (volumes.size() != channels.size()) {
             throw new RuntimeException(
                     "Tried to create a list of speakers with mismatched lists of attributes");
@@ -199,7 +200,7 @@ public class Assignment7Test {
     }
 
     @Test
-    public void testGetMeanVolumeRandomLong() {
+    public void testGetMeanVolumeRandomLots() {
         int N = 10000;
         double[] volumes = new double[N];
         double sum = 0.0;
@@ -254,7 +255,7 @@ public class Assignment7Test {
     }
 
     @Test
-    public void testGetVolumeRangeRandomLong() {
+    public void testGetVolumeRangeRandomLots() {
         int N = 10000;
         ArrayList<Double> volumes = new ArrayList<Double>(N);
         for (int i = 0; i < N; i++) {
@@ -272,17 +273,297 @@ public class Assignment7Test {
 
     // Tests for removeQuiet
 
+    @Test
+    public void testRemoveQuietBasic() {
+        Assignment7.Speaker quiet = new Assignment7.Speaker(1.0, "quiet");
+        Assignment7.Speaker loud = new Assignment7.Speaker(9.0, "loud");
+        ArrayList<Assignment7.Speaker> orig = new ArrayList<Assignment7.Speaker>();
+        orig.add(quiet);
+        orig.add(loud);
+        ArrayList<Assignment7.Speaker> expected = new ArrayList<Assignment7.Speaker>();
+        expected.add(loud);
+
+        Assignment7.removeQuiet(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testRemoveQuietFive() {
+        Assignment7.Speaker quiet = new Assignment7.Speaker(1.0, "quiet");
+        Assignment7.Speaker quiet2 = new Assignment7.Speaker(0.01, "quiet");
+        Assignment7.Speaker loud = new Assignment7.Speaker(4.0, "loud");
+        Assignment7.Speaker loud2 = new Assignment7.Speaker(9.0, "loud");
+        Assignment7.Speaker loud3 = new Assignment7.Speaker(5.0, "loud");
+        ArrayList<Assignment7.Speaker> orig = new ArrayList<Assignment7.Speaker>();
+        orig.add(quiet);
+        orig.add(quiet2);
+        orig.add(loud);
+        orig.add(loud2);
+        orig.add(loud3);
+        ArrayList<Assignment7.Speaker> expected = new ArrayList<Assignment7.Speaker>();
+        expected.add(loud);
+        expected.add(loud2);
+        expected.add(loud3);
+
+        Assignment7.removeQuiet(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testRemoveQuietTen() {
+        ArrayList<Assignment7.Speaker> orig =
+            makeSpeakers(0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0);
+        ArrayList<Assignment7.Speaker> expected = makeSpeakers(1.2, 1.4, 1.6, 1.8, 2.0);
+        Assignment7.removeQuiet(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testRemoveQuietRandom() {
+        int N = 100;
+        ArrayList<Assignment7.Speaker> orig = new ArrayList<Assignment7.Speaker>();
+        ArrayList<Assignment7.Speaker> expected = new ArrayList<Assignment7.Speaker>();
+        for (int i = 0; i < N; i++) {
+            double volume = random.nextDouble() * 10;
+            orig.add(new Assignment7.Speaker(volume, "default"));
+            if (volume > 1.0) {
+                expected.add(new Assignment7.Speaker(volume, "default"));
+            }
+        }
+        Assignment7.removeQuiet(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testRemoveQuietRandomLots() {
+        int N = 10000;
+        ArrayList<Assignment7.Speaker> orig = new ArrayList<Assignment7.Speaker>();
+        ArrayList<Assignment7.Speaker> expected = new ArrayList<Assignment7.Speaker>();
+        for (int i = 0; i < N; i++) {
+            double volume = random.nextDouble() * 10;
+            orig.add(new Assignment7.Speaker(volume, "default"));
+            if (volume > 1.0) {
+                expected.add(new Assignment7.Speaker(volume, "default"));
+            }
+        }
+        Assignment7.removeQuiet(orig);
+        assertEquals(expected, orig);
+    }
+
 
 
     // Tests for bassBoost
+
+    @Test
+    public void testBassBoostBasic() {
+        Assignment7.Speaker bass = new Assignment7.Speaker(2.0, "SUB");
+        Assignment7.Speaker bassBoosted = new Assignment7.Speaker(4.0, "SUB");
+        Assignment7.Speaker nonBass = new Assignment7.Speaker(2.0, "L");
+
+        ArrayList<Assignment7.Speaker> orig = new ArrayList<Assignment7.Speaker>();
+        orig.add(bass);
+        orig.add(nonBass);
+        ArrayList<Assignment7.Speaker> expected = new ArrayList<Assignment7.Speaker>();
+        expected.add(bassBoosted);
+        expected.add(nonBass);
+
+        Assignment7.bassBoost(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testBassBoostFive() {
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+                Arrays.asList(0.2, 0.4, 0.6, 0.8, 1.0),
+                Arrays.asList("SUB", "SUB", "SUB", "L", "R"));
+        ArrayList<Assignment7.Speaker> expected = makeSpeakers(
+                Arrays.asList(0.4, 0.8, 1.2, 0.8, 1.0),
+                Arrays.asList("SUB", "SUB", "SUB", "L", "R"));
+        Assignment7.bassBoost(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testBassBoostTen() {
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+                Arrays.asList(0.2, 0.4, 0.6, 0.8, 1.0, 5.0, 4.0, 3.0, 2.0, 1.0),
+                Arrays.asList("SUB", "SUB", "SUB", "L", "R", "SUB", "SUB", "SUB", "L", "R"));
+        ArrayList<Assignment7.Speaker> expected = makeSpeakers(
+                Arrays.asList(0.4, 0.8, 1.2, 0.8, 1.0, 10.0, 8.0, 6.0, 2.0, 1.0),
+                Arrays.asList("SUB", "SUB", "SUB", "L", "R", "SUB", "SUB", "SUB", "L", "R"));
+        Assignment7.bassBoost(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testBassBoostRandom() {
+        int N = 100;
+        ArrayList<Assignment7.Speaker> orig = new ArrayList<Assignment7.Speaker>();
+        ArrayList<Assignment7.Speaker> expected = new ArrayList<Assignment7.Speaker>();
+        for (int i = 0; i < N/2; i++) {
+            double volume = random.nextDouble() * 10;
+            orig.add(new Assignment7.Speaker(volume, "L"));
+            expected.add(new Assignment7.Speaker(volume, "L"));
+        }
+        for (int i = N/2; i < N; i++) {
+            double volume = random.nextDouble() * 10;
+            orig.add(new Assignment7.Speaker(volume, "SUB"));
+            // notice the volume is multiplied by 2
+            expected.add(new Assignment7.Speaker(volume * 2, "SUB"));
+        }
+        Assignment7.bassBoost(orig);
+        assertEquals(expected, orig);
+    }
+
+    @Test
+    public void testBassBoostRandomLots() {
+        int N = 10000;
+        ArrayList<Assignment7.Speaker> orig = new ArrayList<Assignment7.Speaker>();
+        ArrayList<Assignment7.Speaker> expected = new ArrayList<Assignment7.Speaker>();
+        for (int i = 0; i < N/2; i++) {
+            double volume = random.nextDouble() * 10;
+            orig.add(new Assignment7.Speaker(volume, "SUB"));
+            // notice the volume is multiplied by 2
+            expected.add(new Assignment7.Speaker(volume * 2, "SUB"));
+        }
+        for (int i = N/2; i < N; i++) {
+            double volume = random.nextDouble() * 10;
+            orig.add(new Assignment7.Speaker(volume, "R"));
+            expected.add(new Assignment7.Speaker(volume, "R"));
+        }
+        Assignment7.bassBoost(orig);
+        assertEquals(expected, orig);
+    }
+
+
+
 
 
 
     // Tests for organizeByChannel
 
+    @Test
+    public void testOrganizeByChannelBasic() {
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+                Arrays.asList(0.6, 0.8, 1.0),
+                Arrays.asList("SUB", "L", "R"));
+        HashMap<String, ArrayList<Assignment7.Speaker>> expected =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        expected.put("SUB", makeSpeakers(
+                Arrays.asList(0.6),
+                Arrays.asList("SUB")));
+        expected.put("L", makeSpeakers(
+                Arrays.asList(0.8),
+                Arrays.asList("L")));
+        expected.put("R", makeSpeakers(
+                Arrays.asList(1.0),
+                Arrays.asList("R")));
+        assertEquals(expected, Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelMore() {
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+                Arrays.asList(0.2, 8.8, 0.4, 0.6, 0.8, 1.0),
+                Arrays.asList("SUB", "L", "SUB", "SUB", "L", "R"));
+        HashMap<String, ArrayList<Assignment7.Speaker>> expected =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        expected.put("SUB", makeSpeakers(
+                Arrays.asList(0.2, 0.4, 0.6),
+                Arrays.asList("SUB", "SUB", "SUB")));
+        expected.put("L", makeSpeakers(
+                Arrays.asList(8.8, 0.8),
+                Arrays.asList("L", "L")));
+        expected.put("R", makeSpeakers(
+                Arrays.asList(1.0),
+                Arrays.asList("R")));
+        assertEquals(expected, Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelTen() {
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+                Arrays.asList(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0),
+                Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"));
+        HashMap<String, ArrayList<Assignment7.Speaker>> expected =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        expected.put("J", makeSpeakers(Arrays.asList(1.0), Arrays.asList("J")));
+        expected.put("B", makeSpeakers(Arrays.asList(0.2), Arrays.asList("B")));
+        expected.put("A", makeSpeakers(Arrays.asList(0.1), Arrays.asList("A")));
+        expected.put("D", makeSpeakers(Arrays.asList(0.4), Arrays.asList("D")));
+        expected.put("C", makeSpeakers(Arrays.asList(0.3), Arrays.asList("C")));
+        expected.put("E", makeSpeakers(Arrays.asList(0.5), Arrays.asList("E")));
+        expected.put("G", makeSpeakers(Arrays.asList(0.7), Arrays.asList("G")));
+        expected.put("F", makeSpeakers(Arrays.asList(0.6), Arrays.asList("F")));
+        expected.put("I", makeSpeakers(Arrays.asList(0.9), Arrays.asList("I")));
+        expected.put("H", makeSpeakers(Arrays.asList(0.8), Arrays.asList("H")));
+        assertEquals(expected, Assignment7.organizeByChannel(orig));
+    }
+
+
 
 
     // Tests for getLoudByChannel
+
+    @Test
+    public void testGetLoudByChannelNoneLoud() {
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        orig.put("SUB", makeSpeakers(
+                Arrays.asList(0.6),
+                Arrays.asList("SUB")));
+        orig.put("L", makeSpeakers(
+                Arrays.asList(0.8),
+                Arrays.asList("L")));
+        orig.put("R", makeSpeakers(
+                Arrays.asList(1.0),
+                Arrays.asList("R")));
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        expected.put("SUB", 0);
+        expected.put("L", 0);
+        expected.put("R", 0);
+        assertEquals(expected, Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelTwoLoud() {
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        orig.put("SUB", makeSpeakers(
+                Arrays.asList(9.6),
+                Arrays.asList("SUB")));
+        orig.put("L", makeSpeakers(
+                Arrays.asList(0.8),
+                Arrays.asList("L")));
+        orig.put("R", makeSpeakers(
+                Arrays.asList(8.234),
+                Arrays.asList("R")));
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        expected.put("SUB", 1);
+        expected.put("L", 0);
+        expected.put("R", 1);
+        assertEquals(expected, Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelMore() {
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+                Arrays.asList(0.2, 8.8, 0.4, 0.6, 0.8, 1.0),
+                Arrays.asList("SUB", "L", "SUB", "SUB", "L", "R"));
+        HashMap<String, ArrayList<Assignment7.Speaker>> expected =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        expected.put("SUB", makeSpeakers(
+                Arrays.asList(0.2, 0.4, 0.6),
+                Arrays.asList("SUB", "SUB", "SUB")));
+        expected.put("L", makeSpeakers(
+                Arrays.asList(8.8, 0.8),
+                Arrays.asList("L", "L")));
+        expected.put("R", makeSpeakers(
+                Arrays.asList(1.0),
+                Arrays.asList("R")));
+        assertEquals(expected, Assignment7.organizeByChannel(orig));
+    }
+
 
 
 }

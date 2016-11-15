@@ -68,6 +68,17 @@ public class Assignment7 {
         String getChannel() {
             return channel;
         }
+
+        /**
+         * Do not touch
+         */
+        public boolean equals(Object o) {
+            if (o == null || o.getClass() != Speaker.class) {
+                return false;
+            }
+            Speaker other = (Speaker) o;
+            return this.volume == other.volume && this.channel.equals(other.channel);
+        }
     }
 
 
