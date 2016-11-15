@@ -1,9 +1,7 @@
 /**
- * Assignment 7: TODO
+ * Assignment 7: HashMaps and objects
  * Due: 11:59 pm on Sunday, Nov 20
- *
  */
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +24,12 @@ public class Assignment7 {
 
         /**
          * Constructs a new Speaker with a given volume and channel.
+         *
+         * The maximum volume is 10.0. If the caller tries to set the volume
+         * to a value greater than 10.0, the volume should be set to 10.0.
+         *
+         * If the caller tries to set the volume to a value smaller than 0.0,
+         * the volume should be set to 0.0.
          */
 
         /**
@@ -45,6 +49,17 @@ public class Assignment7 {
         /**
          * Returns the channel of this Speaker.
          */
+
+        /**
+         * Do not touch
+         */
+        public boolean equals(Object o) {
+            if (o == null || o.getClass() != Speaker.class) {
+                return false;
+            }
+            Speaker other = (Speaker) o;
+            return this.volume == other.volume && this.channel.equals(other.channel);
+        }
     }
 
 
@@ -68,6 +83,8 @@ public class Assignment7 {
      * Problem 3: 10 points
      *
      * Returns the range (max - min) of volumes of a group of speakers.
+     *
+     * There will always be at least one speaker in 'speakers'.
      */
     static double getVolumeRange(ArrayList<Speaker> speakers) {
         // TODO
@@ -80,20 +97,20 @@ public class Assignment7 {
     /**
      * Problem 4: 10 points
      *
-     * Halves the volume of each speaker in 'speaker'.
+     * Removes all quiet (volume less than or equal to 1.0) speakers from 'speakers'.
      *
      * For example, if 'speakers' is the list:
      *
-     *   [ SPEAKER 4.0 L, SPEAKER 7.0 L, SPEAKER 3.0 R ]
+     *   [ SPEAKER 1.0 L, SPEAKER 7.0 L, SPEAKER 0.3 R ]
      *
      * then this function modify 'speakers' so that it contains:
      *
-     *   [ SPEAKER 2.0 L, SPEAKER 3.5 L, SPEAKER 1.5 R ]
+     *   [ SPEAKER 7.0 L ]
      *
      * NOTE: the objects should be unchanged (i.e. this function
      * should not create new objects).
      */
-    static void halveVolumes(ArrayList<Speaker> speakers) {
+    static void removeQuiet(ArrayList<Speaker> speakers) {
         // TODO
     }
 
