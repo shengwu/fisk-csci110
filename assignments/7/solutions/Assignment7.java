@@ -24,9 +24,15 @@ public class Assignment7 {
 
         /**
          * Constructs a new Speaker with a given volume and channel.
+         *
+         * The maximum volume is 10.0. If the caller tries to set the volume
+         * to a value greater than 10.0, the volume should be set to 10.0.
+         *
+         * If the caller tries to set the volume to a value smaller than 0.0,
+         * the volume should be set to 0.0.
          */
         Speaker(double volume, String channel) {
-            this.volume = volume;
+            setVolume(volume);
             this.channel = channel;
         }
 
@@ -110,22 +116,31 @@ public class Assignment7 {
     /**
      * Problem 4: 10 points
      *
-     * Halves the volume of each speaker in 'speaker'.
+     * Removes all quiet (volume less than or equal to 1.0) speakers from 'speakers'.
      *
      * For example, if 'speakers' is the list:
      *
-     *   [ SPEAKER 4.0 L, SPEAKER 7.0 L, SPEAKER 3.0 R ]
+     *   [ SPEAKER 1.0 L, SPEAKER 7.0 L, SPEAKER 0.3 R ]
      *
      * then this function modify 'speakers' so that it contains:
      *
-     *   [ SPEAKER 2.0 L, SPEAKER 3.5 L, SPEAKER 1.5 R ]
+     *   [ SPEAKER 7.0 L ]
      *
      * NOTE: the objects should be unchanged (i.e. this function
      * should not create new objects).
      */
-    static void halveVolumes(ArrayList<Speaker> speakers) {
+    static void removeQuiet(ArrayList<Speaker> speakers) {
+        // Create a temporary ArrayList to hold the Speakers that we want to remove
+        //
+        // This lets us avoid modifying 'speakers' while we're iterating over it
+        ArrayList<Speaker> speakersToRemove = new ArrayList<Speaker>();
         for (Speaker s : speakers) {
-            s.setVolume(s.getVolume() / 2);
+            if (s.getVolume() <= 1.0) {
+                speakersToRemove.add(s);
+            }
+        }
+        for (Speaker s : speakersToRemove) {
+            speakers.remove(s);
         }
     }
 
