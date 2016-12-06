@@ -26,8 +26,12 @@
  *   java org.junit.runner.JUnitCore FinalTest
  */
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Final {
 
@@ -84,6 +88,10 @@ public class Final {
          */
         public void setScore(double newScore) {
             score = newScore;
+        }
+
+        public String toString() {
+            return name + ", " + auditionLocation + ", " + score;
         }
     }
 
@@ -191,6 +199,17 @@ public class Final {
      * setScore method to save the normalized score back to the Contestant
      * object.
      *
+     * For example, given contestants with the following scores:
+     *
+     * 5.0, 10.0, 15.0
+     *
+     * The mean is 10.0
+     * The standard deviation is 5
+     * After being processed by this function, the contestants would have
+     * the updated scores:
+     *
+     * -1.0, 0.0, 1.0
+     *
      * NOTE: all of the contestants passed in the contestantsInALocation
      * are from the same location!
      */
@@ -278,11 +297,30 @@ public class Final {
     /**
      * Problem 5: 200 points
      *
-     * Prints the names of the top 10 contestants from best to worst. Higher
-     * scores are better.
+     * Returns the names of the top 10 contestants in 'contestants' from
+     * best to worst. Higher scores are better.
+     *
+     * It's fine to modify 'contestants'.
      */
-    public static void printTop10(ArrayList<Contestant> normalizedContestants) {
-        // TODO
+    public static ArrayList<String> getTop10(ArrayList<Contestant> contestants) {
+        // Run insertion sort on 'contestants' in descending order
+        for (int i = 0; i < contestants.size(); i++) {
+            Contestant curr = contestants.get(i);
+            int j;
+            for (j = i-1;
+                j >= 0 && contestants.get(j).getScore() < curr.getScore();
+                j--) {
+                contestants.set(j+1, contestants.get(j));
+            }
+            contestants.set(j+1, curr);
+        }
+
+        ArrayList<String> topTen = new ArrayList<String>();
+        int end = Math.min(10, contestants.size());
+        for (int i = 0; i < end; i++) {
+          topTen.add(contestants.get(i).getName());
+        }
+        return topTen;
     }
 
 
@@ -290,28 +328,37 @@ public class Final {
     /**
      * Extra credit: 200 points
      *
-     * Goes through all of the locations, prints that location, and prints
-     * the top 3 contestants at that location (from best to worst).
+     * Goes through all of the contesstants and determines the top 3
+     * contestants for each location (from best to worst).
      *
-     * Hint: use getLocationLookup()
+     * Hint: you can use getLocationLookup() and getTop10() to help
+     * you write this function.
      *
-     * An example of what this function would print
-     * --------------------------------------------
+     * An example of what this function would return:
      *
-     * NYC:
-     * Sam Smith
-     * Nicki Minaj
-     * Taylor Swift
-     *
-     * Oakland:
-     * Kevin Durant
-     * Stephen Curry
-     * Lil B
+     * NYC: Sam Smith, Nicki Minaj, Taylor Swift
+     * Oakland: Kevin Durant, Stephen Curry, Lil B
      */
-    public static void printTop3ByLocation(ArrayList<Contestant> normalizedContestants) {
-        // TODO
-    }
+    public static HashMap<String, ArrayList<String>> getTop3ByLocation(ArrayList<Contestant> contestants) {
+        // Initialize the HashMap we're going to return
+        HashMap<String, ArrayList<String>> result = new HashMap<String, ArrayList<String>>();
 
+        // Get a list of contestants for each location
+        HashMap<String, ArrayList<Contestant>> lookup = getLocationLookup(contestants);
+
+        // Go through each location
+        for (String location : lookup.keySet()) {
+            // Get the top 10 for contestants in that location
+            ArrayList<String> topThree = getTop10(lookup.get(location));
+            // Clear 4 through 10
+            if (topThree.size() > 3) {
+                topThree.subList(3, topThree.size()).clear();
+            }
+            // and it put in the result
+            result.put(location, topThree);
+        }
+        return result;
+    }
 
 
 
@@ -325,11 +372,33 @@ public class Final {
     /**
      * DO NOT TOUCH
      *
-     * Badly reads in a CSV file. Does not handle numerous edge cases
+     * THIS IS TERRIBLE CSV PARSING CODE. Does not handle numerous edge cases
      * that a real CSV reader would handle.
+     *
+     * However, it works enough for the purposes of your final.
      */
     static void badlyReadCsvFile(String fileName, ArrayList<String> names,
-            ArrayList<String> auditionLocations, ArrayList<Double> scores) {
+          ArrayList<String> auditionLocations, ArrayList<Double> scores) {
+        try {
+            Scanner scanner = new Scanner(new File(fileName));
+            scanner.useDelimiter(Pattern.compile("[\n,]"));
+            // Skip the first line
+            scanner.next();
+            scanner.next();
+            scanner.next();
+            while (scanner.hasNext()) {
+                names.add(scanner.next().trim());
+                auditionLocations.add(scanner.next().trim());
+                scores.add(Double.parseDouble(scanner.next().trim()));
+            }
+            //System.out.println(names);
+            //System.out.println(auditionLocations);
+            //System.out.println(scores);
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("CSV file not found: " + fileName);
+            System.exit(0);
+        }
     }
 
 
@@ -354,21 +423,32 @@ public class Final {
         ArrayList<Double> scores = new ArrayList<Double>();
         badlyReadCsvFile(args[0], names, auditionLocations, scores);
 
-        // Start processing the data from the spreadsheet
+        // Start processing the data from the spreadsheet using your functions
         ArrayList<Contestant> allContestants = getContestantList(
                 names, auditionLocations, scores);
-
         HashMap<String, ArrayList<Contestant>> contestantsByLocation =
                 getLocationLookup(allContestants);
-                
         ArrayList<Contestant> normalizedContestants =
                 normalizeContestantScores(contestantsByLocation);
 
         // See who the winners are:
-        System.out.println("FINAL CONTESTANT LIST:");
-        printTop10(normalizedContestants);
+        System.out.println("Top Ten Contestants:");
+        System.out.println("--------------------");
+        ArrayList<String> topTen = getTop10(normalizedContestants);
+        for (int i = 0; i < topTen.size(); i++) {
+            System.out.println((i+1) + ". " + topTen.get(i));
+        }
 
-        System.out.println("\n\nCONTESTANTS BY LOCATION:");
-        printTop3ByLocation(normalizedContestants);
+        System.out.println("\n\nTop Three Contestants By Location:");
+        System.out.println("----------------------------------");
+        HashMap<String, ArrayList<String>> byLocation =
+            getTop3ByLocation(normalizedContestants);
+        for (String location : byLocation.keySet()) {
+            System.out.println(location + ":");
+            for (int i = 0; i < 3; i++) {
+                System.out.println((i+1) + ". " + byLocation.get(location).get(i));
+            }
+            System.out.println();
+        }
     }
 }
