@@ -33,6 +33,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Final {
+    private static final double EPS = 0.000000000000001;
 
     /**
      * Problem 1: 200 points
@@ -90,6 +91,23 @@ public class Final {
          */
         public void setScore(double newScore) {
             score = newScore;
+        }
+
+        // DO NOT TOUCH
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || o.getClass() != Contestant.class) {
+                return false;
+            }
+            Contestant other = (Contestant) o;
+            return this.name.equals(other.name) &&
+              this.auditionLocation.equals(other.auditionLocation) &&
+              Math.abs(this.score - other.score) < EPS;
+        }
+
+        @Override
+        public String toString() {
+            return name + ", " + auditionLocation + ", " + score;
         }
     }
 
@@ -213,7 +231,7 @@ public class Final {
      * Dividing by the standard deviation, the contestants would have
      * the updated scores:
      *
-     * -1.0, 0.0, 1.0
+     * -1.224744871391589, 0.0, 1.224744871391589
      */
     public static void normalizeScores(ArrayList<Contestant> contestants) {
         // Copy the scores into an ArrayList<Double>
