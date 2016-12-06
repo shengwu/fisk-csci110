@@ -11,19 +11,18 @@
  * next American Idol. Thousands of people across the country have auditioned
  * for a spot on the show next season.
  *
- * This presents a few challenges:
+ * Having so many auditions presents a few challenges:
  * - selecting contestants by hand would take forever!
  * - people who auditioned in some places might be at a disadvantage
- *   because judges there were harder than judges elsewhere
+ *   because judges there graded more harshly than judges elsewhere
  *
  * In this exam, you'll write a series of functions to automatically process a
- * year's worth of audition data. One such year has been included in a file
- * named test.csv. The code you write should work for any other similarly
- * formatted file, including ones that have thousands of entries.
+ * year's worth of audition data. A few hundred sample auditions been included
+ * in a file named example.csv. The code you write should work for any other
+ * similarly formatted file, including ones that have thousands of entries.
  *
- * Use the tests in FinalTest.java to test your code with JUnit:
- *   javac Final.java FinalTest.java
- *   java org.junit.runner.JUnitCore FinalTest
+ * Use the tests in FinalTest.java to test your code with JUnit.
+ * (instructions at http://sheng.io/fisk)
  */
 
 import java.io.File;
@@ -37,6 +36,9 @@ public class Final {
 
     /**
      * Problem 1: 200 points
+     *
+     * Describes a contestant. Contestants have a name, audition location, and
+     * score.
      *
      * Complete the Contestant class by writing:
      * - a constructor
@@ -89,10 +91,6 @@ public class Final {
         public void setScore(double newScore) {
             score = newScore;
         }
-
-        public String toString() {
-            return name + ", " + auditionLocation + ", " + score;
-        }
     }
 
 
@@ -102,8 +100,8 @@ public class Final {
      *
      * Takes ArrayLists containing all contestant names, audition locations,
      * and scores and returns an ArrayList of Contestant objects with the same
-     * information. The name, audition location, and score at index i are all
-     * for the same contestant.
+     * information. The name, audition location, and score at index i are for
+     * the same contestant.
      *
      * Hint: think about how you would do this for one Contestant:
      *
@@ -111,7 +109,6 @@ public class Final {
      * String auditionLocation = "Akron";
      * double score = -10.0;
      * Contestant c = new Contestant(name, auditionLocation, score);
-     *
      */
     public static ArrayList<Contestant> getContestantList(
             ArrayList<String> names,
@@ -133,7 +130,7 @@ public class Final {
      * Problem 3: 200 points
      *
      * Takes an ArrayList containing all contestants, and creates a HashMap that
-     * maps FROM location TO all contestants who auditioned there.
+     * maps from LOCATION (key) to LIST OF CONTESTANTS WHO AUDITIONED THERE (value).
      *
      * For example, if allContestaints contained the following data:
      *   Taylor Swift, NYC, 5.0
@@ -149,30 +146,34 @@ public class Final {
      * Such a HashMap lets us quickly look up all of the contestants that
      * auditioned at a particular location.
      *
-     * Each value is an ArrayList of Contestants.
+     * Hints:
      *
-     * Hint: first create an empty HashMap with all location keys:
+     * First create an empty HashMap with all location keys:
      *   NYC:
      *   Oakland:
      *   LA:
+     *
+     * Each value in the HashMap is an ArrayList of Contestants, which you'll
+     * have to initialize.
      */
     public static HashMap<String, ArrayList<Contestant>> getLocationLookup(
-            ArrayList<Contestant> allContestants) {
-        // Step 1: create a new HashMap that's going to be your result
+            ArrayList<Contestant> contestants) {
+        // Step 1: create a new HashMap that's going to be the result
         HashMap<String, ArrayList<Contestant>> result =
                 new HashMap<String, ArrayList<Contestant>>();
 
-        // Step 2: add empty ArrayList<Contestant> entries for each possible location
-        for (Contestant c : allContestants) {
+        // Step 2: add an empty ArrayList<Contestant> to the result for each
+        // possible location
+        for (Contestant c : contestants) {
             if (!result.containsKey(c.getAuditionLocation())) {
                 ArrayList<Contestant> newEmpty = new ArrayList<Contestant>();
                 result.put(c.getAuditionLocation(), newEmpty);
             }
         }
 
-        // Step 3: go through allContestants and add each contestant to his/her
-        // audition location ArrayList in your result
-        for (Contestant c : allContestants) {
+        // Step 3: go through allContestants and add each contestant to the
+        // list for his/her audition location
+        for (Contestant c : contestants) {
             result.get(c.getAuditionLocation()).add(c);
         }
 
@@ -184,16 +185,16 @@ public class Final {
     /**
      * Problem 4: 200 points
      *
-     * Normalizes the scores of all contestants who auditioned in a location.
+     * Normalizes the scores of a list of contestants.
      *
-     * This is a process of correcting for a specific judge's tendency to be
-     * harsher or more leinient on the contestants he or she evaluated.
+     * This corrects for a specific judge's tendency to be harsher or more
+     * leinient on the contestants he or she evaluated.
      *
      * How do we do this?
-     * 1) Compute the mean of all scores (from a given location)
-     * 2) Compute the standard deviation of all scores
-     * 3) Subtract the mean from all scores, so that the mean score is now 0
-     * 4) Divide all of the scores from (3) by the standard deviation
+     * 1) Compute the mean of the scores
+     * 2) Compute the standard deviation of the scores
+     * 3) Subtract the mean from each score (so that the mean score is now 0)
+     * 4) Divide each score by the standard deviation
      *
      * After doing this calculation, update each contestant's score using the
      * setScore method to save the normalized score back to the Contestant
@@ -205,19 +206,19 @@ public class Final {
      *
      * The mean is 10.0
      * The standard deviation is 5
-     * After being processed by this function, the contestants would have
+     * Subtracting the mean from each score, we get:
+     *
+     * -5.0, 0.0, 5.0
+     *
+     * Dividing by the standard deviation, the contestants would have
      * the updated scores:
      *
      * -1.0, 0.0, 1.0
-     *
-     * NOTE: all of the contestants passed in the contestantsInALocation
-     * are from the same location!
      */
-    public static void normalizeScoresByLocation(
-            ArrayList<Contestant> contestantsInALocation) {
+    public static void normalizeScores(ArrayList<Contestant> contestants) {
         // Copy the scores into an ArrayList<Double>
         ArrayList<Double> scores = new ArrayList<Double>();
-        for (Contestant c : contestantsInALocation) {
+        for (Contestant c : contestants) {
             scores.add(c.getScore());
         }
 
@@ -238,18 +239,17 @@ public class Final {
         }
 
         // Update each contestant's score
-        for (int i = 0; i < contestantsInALocation.size(); i++) {
-            contestantsInALocation.get(i).setScore(
+        for (int i = 0; i < contestants.size(); i++) {
+            contestants.get(i).setScore(
                     scores.get(i));
         }
     }
 
 
     /**
-     * DO NOT TOUCH
-     * but feel free to use
+     * Helper functions for you to use in the above method.
      *
-     * Helper functions to use in the above method.
+     * Tip: don't modify these.
      */
     private static double getMean(
             ArrayList<Double> numbers) {
@@ -284,7 +284,7 @@ public class Final {
         for (String location : contestantsByLocation.keySet()) {
             // Adjusts all of the contestant scores for a given location
             ArrayList<Contestant> contestantsHere = contestantsByLocation.get(location);
-            normalizeScoresByLocation(contestantsHere);
+            normalizeScores(contestantsHere);
 
             // Adds all of these contestants to our result
             normalizedContestants.addAll(contestantsHere);
@@ -315,6 +315,7 @@ public class Final {
             contestants.set(j+1, curr);
         }
 
+        // Copy the top ten names into a new ArrayList
         ArrayList<String> topTen = new ArrayList<String>();
         int end = Math.min(10, contestants.size());
         for (int i = 0; i < end; i++) {
@@ -391,9 +392,6 @@ public class Final {
                 auditionLocations.add(scanner.next().trim());
                 scores.add(Double.parseDouble(scanner.next().trim()));
             }
-            //System.out.println(names);
-            //System.out.println(auditionLocations);
-            //System.out.println(scores);
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("CSV file not found: " + fileName);
@@ -403,12 +401,11 @@ public class Final {
 
 
     /**
-     * DO NOT TOUCH
-     *
      * The main function never gets run if you're only testing the code.
      *
-     * If you've finished everything and want to test your program on test.csv, 
-     * run "java Final test.csv".
+     * If you've finished everything and want to test your program on
+     * example.csv, run "java Final example.csv" and you should see some
+     * familiar names among the winners of the audition.
      */
     public static void main(String[] args) {
         // DO NOT TOUCH: reads in the CSV-format spreadsheet specified by the
@@ -431,7 +428,7 @@ public class Final {
         ArrayList<Contestant> normalizedContestants =
                 normalizeContestantScores(contestantsByLocation);
 
-        // See who the winners are:
+        // See who the winners are
         System.out.println("Top Ten Contestants:");
         System.out.println("--------------------");
         ArrayList<String> topTen = getTop10(normalizedContestants);
@@ -439,6 +436,7 @@ public class Final {
             System.out.println((i+1) + ". " + topTen.get(i));
         }
 
+        // Top 3 by location
         System.out.println("\n\nTop Three Contestants By Location:");
         System.out.println("----------------------------------");
         HashMap<String, ArrayList<String>> byLocation =
