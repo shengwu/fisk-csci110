@@ -500,6 +500,122 @@ public class Assignment7Test {
         assertEquals(expected, Assignment7.organizeByChannel(orig));
     }
 
+    @Test
+    public void testOrganizeByChannelRandom1() {
+        int N = 100;
+        Double[] randvols = new Double[100];
+        String[] randchs = new String[100];
+        for (int i = 0; i < N; i++) {
+            randvols[i] = Math.random() * 10;
+            randchs[i] = Character.toString((char) (Math.random() * 26 + 97)); 
+        }
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+            Arrays.asList(randvols), Arrays.asList(randchs));
+        assertEquals(correctOrganizeByChannel(orig), Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelRandom2() {
+        int N = 100;
+        Double[] randvols = new Double[100];
+        String[] randchs = new String[100];
+        for (int i = 0; i < N; i++) {
+            randvols[i] = Math.random() * 10;
+            randchs[i] = Character.toString((char) (Math.random() * 26 + 97)); 
+        }
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+            Arrays.asList(randvols), Arrays.asList(randchs));
+        assertEquals(correctOrganizeByChannel(orig), Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelRandom3() {
+        int N = 100;
+        Double[] randvols = new Double[100];
+        String[] randchs = new String[100];
+        for (int i = 0; i < N; i++) {
+            randvols[i] = Math.random() * 10;
+            randchs[i] = Character.toString((char) (Math.random() * 26 + 97)); 
+        }
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+            Arrays.asList(randvols), Arrays.asList(randchs));
+        assertEquals(correctOrganizeByChannel(orig), Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelRandom4() {
+        int N = 100;
+        Double[] randvols = new Double[100];
+        String[] randchs = new String[100];
+        for (int i = 0; i < N; i++) {
+            randvols[i] = Math.random() * 10;
+            randchs[i] = Character.toString((char) (Math.random() * 26 + 97)); 
+        }
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+            Arrays.asList(randvols), Arrays.asList(randchs));
+        assertEquals(correctOrganizeByChannel(orig), Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelRandom5() {
+        int N = 100;
+        Double[] randvols = new Double[100];
+        String[] randchs = new String[100];
+        for (int i = 0; i < N; i++) {
+            randvols[i] = Math.random() * 10;
+            randchs[i] = Character.toString((char) (Math.random() * 26 + 97)); 
+        }
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+            Arrays.asList(randvols), Arrays.asList(randchs));
+        assertEquals(correctOrganizeByChannel(orig), Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelRandom6() {
+        int N = 100;
+        Double[] randvols = new Double[100];
+        String[] randchs = new String[100];
+        for (int i = 0; i < N; i++) {
+            randvols[i] = Math.random() * 10;
+            randchs[i] = Character.toString((char) (Math.random() * 26 + 97)); 
+        }
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+            Arrays.asList(randvols), Arrays.asList(randchs));
+        assertEquals(correctOrganizeByChannel(orig), Assignment7.organizeByChannel(orig));
+    }
+
+    @Test
+    public void testOrganizeByChannelRandom7() {
+        int N = 100;
+        Double[] randvols = new Double[100];
+        String[] randchs = new String[100];
+        for (int i = 0; i < N; i++) {
+            randvols[i] = Math.random() * 10;
+            randchs[i] = Character.toString((char) (Math.random() * 26 + 97)); 
+        }
+        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
+            Arrays.asList(randvols), Arrays.asList(randchs));
+        assertEquals(correctOrganizeByChannel(orig), Assignment7.organizeByChannel(orig));
+    }
+
+
+    private static HashMap<String, ArrayList<Assignment7.Speaker>> correctOrganizeByChannel(
+            ArrayList<Assignment7.Speaker> speakers) {
+        HashMap<String, ArrayList<Assignment7.Speaker>> result =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (Assignment7.Speaker s : speakers) {
+            // We'll need to create a new key-value pair
+            // if one doesn't exist for this speaker's channel
+            if (!result.containsKey(s.getChannel())) {
+                result.put(s.getChannel(), new ArrayList<Assignment7.Speaker>());
+            }
+            // Add the speaker to the list of speakers where the
+            // key == this speaker's channel
+            result.get(s.getChannel()).add(s);
+        }
+        return result;
+    }
+
 
 
 
@@ -547,23 +663,158 @@ public class Assignment7Test {
 
     @Test
     public void testGetLoudByChannelMore() {
-        ArrayList<Assignment7.Speaker> orig = makeSpeakers(
-                Arrays.asList(0.2, 8.8, 0.4, 0.6, 0.8, 1.0),
-                Arrays.asList("SUB", "L", "SUB", "SUB", "L", "R"));
-        HashMap<String, ArrayList<Assignment7.Speaker>> expected =
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
             new HashMap<String, ArrayList<Assignment7.Speaker>>();
-        expected.put("SUB", makeSpeakers(
+        orig.put("SUB", makeSpeakers(
                 Arrays.asList(0.2, 0.4, 0.6),
                 Arrays.asList("SUB", "SUB", "SUB")));
-        expected.put("L", makeSpeakers(
+        orig.put("L", makeSpeakers(
                 Arrays.asList(8.8, 0.8),
                 Arrays.asList("L", "L")));
-        expected.put("R", makeSpeakers(
+        orig.put("R", makeSpeakers(
                 Arrays.asList(1.0),
                 Arrays.asList("R")));
-        assertEquals(expected, Assignment7.organizeByChannel(orig));
+        HashMap<String, Integer> expected = new HashMap<String, Integer>();
+        expected.put("SUB", 0);
+        expected.put("L", 1);
+        expected.put("R", 0);
+        assertEquals(expected, Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelRandom1() {
+        int N = 100;
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (int i = 0; i < N; i++) {
+            double randvol = Math.random() * 10;
+            String randch = Character.toString((char) (Math.random() * 26 + 97)); 
+            Assignment7.Speaker s = new Assignment7.Speaker(randvol, randch);
+            if (!orig.containsKey(randch)) {
+                orig.put(randch, new ArrayList<Assignment7.Speaker>());
+            }
+            orig.get(randch).add(s);
+        }
+        assertEquals(correctGetLoudByChannel(orig), Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelRandom2() {
+        int N = 100;
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (int i = 0; i < N; i++) {
+            double randvol = Math.random() * 10;
+            String randch = Character.toString((char) (Math.random() * 26 + 97)); 
+            Assignment7.Speaker s = new Assignment7.Speaker(randvol, randch);
+            if (!orig.containsKey(randch)) {
+                orig.put(randch, new ArrayList<Assignment7.Speaker>());
+            }
+            orig.get(randch).add(s);
+        }
+        assertEquals(correctGetLoudByChannel(orig), Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelRandom3() {
+        int N = 100;
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (int i = 0; i < N; i++) {
+            double randvol = Math.random() * 10;
+            String randch = Character.toString((char) (Math.random() * 26 + 97)); 
+            Assignment7.Speaker s = new Assignment7.Speaker(randvol, randch);
+            if (!orig.containsKey(randch)) {
+                orig.put(randch, new ArrayList<Assignment7.Speaker>());
+            }
+            orig.get(randch).add(s);
+        }
+        assertEquals(correctGetLoudByChannel(orig), Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelRandom4() {
+        int N = 100;
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (int i = 0; i < N; i++) {
+            double randvol = Math.random() * 10;
+            String randch = Character.toString((char) (Math.random() * 26 + 97)); 
+            Assignment7.Speaker s = new Assignment7.Speaker(randvol, randch);
+            if (!orig.containsKey(randch)) {
+                orig.put(randch, new ArrayList<Assignment7.Speaker>());
+            }
+            orig.get(randch).add(s);
+        }
+        assertEquals(correctGetLoudByChannel(orig), Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelRandom5() {
+        int N = 100;
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (int i = 0; i < N; i++) {
+            double randvol = Math.random() * 10;
+            String randch = Character.toString((char) (Math.random() * 26 + 97)); 
+            Assignment7.Speaker s = new Assignment7.Speaker(randvol, randch);
+            if (!orig.containsKey(randch)) {
+                orig.put(randch, new ArrayList<Assignment7.Speaker>());
+            }
+            orig.get(randch).add(s);
+        }
+        assertEquals(correctGetLoudByChannel(orig), Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelRandom6() {
+        int N = 100;
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (int i = 0; i < N; i++) {
+            double randvol = Math.random() * 10;
+            String randch = Character.toString((char) (Math.random() * 26 + 97)); 
+            Assignment7.Speaker s = new Assignment7.Speaker(randvol, randch);
+            if (!orig.containsKey(randch)) {
+                orig.put(randch, new ArrayList<Assignment7.Speaker>());
+            }
+            orig.get(randch).add(s);
+        }
+        assertEquals(correctGetLoudByChannel(orig), Assignment7.getLoudByChannel(orig));
+    }
+
+    @Test
+    public void testGetLoudByChannelRandom7() {
+        int N = 100;
+        HashMap<String, ArrayList<Assignment7.Speaker>> orig =
+            new HashMap<String, ArrayList<Assignment7.Speaker>>();
+        for (int i = 0; i < N; i++) {
+            double randvol = Math.random() * 10;
+            String randch = Character.toString((char) (Math.random() * 26 + 97)); 
+            Assignment7.Speaker s = new Assignment7.Speaker(randvol, randch);
+            if (!orig.containsKey(randch)) {
+                orig.put(randch, new ArrayList<Assignment7.Speaker>());
+            }
+            orig.get(randch).add(s);
+        }
+        assertEquals(correctGetLoudByChannel(orig), Assignment7.getLoudByChannel(orig));
     }
 
 
 
+
+    private static HashMap<String, Integer> correctGetLoudByChannel(
+            HashMap<String, ArrayList<Assignment7.Speaker>> speakerLookup) {
+        HashMap<String, Integer> result = new HashMap<String, Integer>();
+        for (String channel : speakerLookup.keySet()) {
+            int count = 0;
+            for (Assignment7.Speaker speaker : speakerLookup.get(channel)) {
+                if (speaker.getVolume() >= 8.0) {
+                    count += 1;
+                }
+            }
+            result.put(channel, count);
+        }
+        return result;
+    }
 }
