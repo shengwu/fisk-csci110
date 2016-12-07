@@ -33,6 +33,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Final {
+    private static final double EPS = 0.000000000000001;
 
     /**
      * Problem 1: 200 points
