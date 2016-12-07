@@ -1,7 +1,7 @@
 CSCI 110 Fall 2016
 ==================
 
-Completed assignments and assignment starter code for sheng's section 1
+Assignment starter code and other course material for sheng's section 1
 
 Folders:
 
